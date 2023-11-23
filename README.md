@@ -8,4 +8,4 @@
 [User persona and User Journey Map](https://github.com/inginerie-software-2023-2024/proiect-inginerie-software-fit-smth/wiki/User-persona-and-User-Journey-Map) <br >
 [Roadmap](https://github.com/inginerie-software-2023-2024/proiect-inginerie-software-fit-smth/wiki/Roadmap) <br >
 
-[Backlog]() <br >
+[Backlog](https://github.com/orgs/inginerie-software-2023-2024/projects/16) <br >
