@@ -3,7 +3,7 @@ import SidebarMenu from '../components/SidebarMenu'
 
 const Home = () => {
     return (
-        <SidebarMenu/>
+        <SidebarMenu />
     )
 }
 

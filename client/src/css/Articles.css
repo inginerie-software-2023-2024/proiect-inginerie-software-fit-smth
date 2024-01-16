@@ -1,0 +1,14 @@
+.sidebar {
+    width: max-content;
+}
+
+.content-articles {
+    width: calc(100vw - 300px);
+
+    form {
+        margin: 10px;
+        span {
+            cursor: pointer;
+        }
+    }
+}

@@ -9,20 +9,20 @@ import mysql from "mysql2";
 // })
 
 //Andrada
-// const db = mysql.createConnection({
-//     database: "mdsdb",
-//     host: "127.0.0.1",
-//     user: "root",
-//     password: "dulumanandrada"
-// })
+const db = mysql.createConnection({
+    database: "mdsdb",
+    host: "127.0.0.1",
+    user: "root",
+    password: "dulumanandrada"
+})
 
 //Anto
-const db = mysql.createConnection({
-  database: "is_fit",
-  host: "localhost",
-  user: "root",
-  password: "Sn2002oopy1!",
-});
+// const db = mysql.createConnection({
+//   database: "is_fit",
+//   host: "localhost",
+//   user: "root",
+//   password: "Sn2002oopy1!",
+// });
 
 db.connect((err) => {
   if (err) {

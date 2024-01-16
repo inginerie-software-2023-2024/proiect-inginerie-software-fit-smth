@@ -38,49 +38,49 @@ const Login = () => {
     }
 
     return (
-        <section class="vh-100">
-        <div class="py-3 text-center">
-            <h1 class="display-3 font-weight-bold"> PowerUp</h1>
-            <h3 class="display-10 font-weight-bold">Your Journey to Strength, Harmony, and Self-Care at Home.</h3>
+        <section className="vh-100">
+        <div className="py-3 text-center">
+            <h1 className="display-3 font-weight-bold"> PowerUp</h1>
+            <h3 className="display-10 font-weight-bold">Your Journey to Strength, Harmony, and Self-Care at Home.</h3>
         </div>
-        <div class="container-fluid h-100">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-md-9 col-lg-6 col-xl-5">
-            <video src={video} autoPlay muted loop class="img-fluid" alt="Sample image"></video>
+        <div className="container-fluid h-100">
+          <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="col-md-9 col-lg-6 col-xl-5">
+            <video src={video} autoPlay muted loop className="img-fluid" alt="Sample image"></video>
             </div>
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
               <form>
-                <div class="d-flex flex-row align-items-center text-center justify-content-lg-start">
-                     <p class="lead fw-normal mb-0 me-3 ">Welcome back!!!</p>
+                <div className="d-flex flex-row align-items-center text-center justify-content-lg-start">
+                     <p className="lead fw-normal mb-0 me-3 ">Welcome back!!!</p>
                 </div>
-                <div class="form-outline mb-4">
-                  <input type="text" id="form3Example3" class="form-control form-control-lg"
+                <div className="form-outline mb-4">
+                  <input type="text" id="form3Example3" className="form-control form-control-lg"
                     placeholder="Enter username" 
                     onChange = {e => setValues({...values, username: e.target.value})}/>
-                  <label class="form-label" for="form3Example3"></label>
+                  <label className="form-label" htmlFor="form3Example3"></label>
                 </div>
       
-                <div class="form-outline mb-3">
-                  <input type="password" id="form3Example4" class="form-control form-control-lg"
+                <div className="form-outline mb-3">
+                  <input type="password" id="form3Example4" className="form-control form-control-lg"
                     placeholder="Enter password" 
                     onChange = {e => setValues({...values, password: e.target.value})}/>
-                  <label class="form-label" for="form3Example4"></label>
+                  <label className="form-label" htmlFor="form3Example4"></label>
                 </div>
       
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="form-check mb-0">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                    <label class="form-check-label" for="form2Example3">
+                <div className="d-flex justify-content-between align-items-center">
+                  <div className="form-check mb-0">
+                    <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                    <label className="form-check-label" htmlFor="form2Example3">
                       Remember me
                     </label>
                   </div>
-                  <a href="#!" class="text-body">Forgot password?</a>
+                  <a href="#!" className="text-body">Forgot password?</a>
                 </div>
       
-                <div class="text-center text-lg-start mt-4 pt-2">
-                  <button onClick = {handleLogin} type="button" class="btn btn-primary btn-lg"
+                <div className="text-center text-lg-start mt-4 pt-2">
+                  <button onClick = {handleLogin} type="button" className="btn btn-primary btn-lg"
                     style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>Login</button>
-                  <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account?
+                  <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account?
                    <span className="link-danger" ><NavLink to ="/register" className="register">Register</NavLink></span></p>
                 </div>
               </form>
@@ -88,8 +88,8 @@ const Login = () => {
           </div>
         </div>
         <div
-          class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-          <div class="text-white mb-3 mb-md-0">
+          className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+          <div className="text-white mb-3 mb-md-0">
             Copyright © 2024. All rights reserved.
           </div>
         </div>
