@@ -1,10 +1,17 @@
 import mysql from "mysql2"
 
+// const db = mysql.createConnection({
+//     database: "isdb",
+//     host: "localhost",
+//     user: "root",
+//     password: "mysql123"
+// })
+
 const db = mysql.createConnection({
-    database: "isdb",
-    host: "localhost",
+    database: "mdsdb",
+    host: "127.0.0.1",
     user: "root",
-    password: "mysql123"
+    password: "dulumanandrada"
 })
 
 db.connect((err) => {
