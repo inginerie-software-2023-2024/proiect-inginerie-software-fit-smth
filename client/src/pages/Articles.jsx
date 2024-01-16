@@ -17,9 +17,10 @@ const Articles = () => {
     });
 
     useEffect(() => {
-        // axios.get("http://localhost:3001/articles").then((response) => {
-        //     setArticlesList(response.data)
-        // });
+        axios.get("http://localhost:3001/articles/getArticles").then((response) => {
+            setArticlesList(response.data)
+            console.log(response.data);
+        });
     }, []);
 
     const handleSearch = (event) => {
@@ -45,6 +46,15 @@ const Articles = () => {
                             </span>
                         </div>
                     </form>
+                    <div className='row all-articles'>
+                        {
+                            articlesList.map(article => (
+                                <div className="col col-md-4">
+                                    <h1>{ article.title }</h1>
+                                </div>
+                            ))
+                        }
+                    </div>
                 </div>
             </div>
         </section>

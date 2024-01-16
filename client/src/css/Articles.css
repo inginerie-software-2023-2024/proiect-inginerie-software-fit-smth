@@ -11,4 +11,9 @@
             cursor: pointer;
         }
     }
+
+    .all-articles {
+        margin-top: 40px;
+        width: 100%;
+    }
 }
