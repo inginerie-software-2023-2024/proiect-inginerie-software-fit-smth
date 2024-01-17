@@ -13,3 +13,17 @@ export const getAllArticles = (req, res) => {
         else return res.json(data)
     })
 }
+
+export const getArticle = (req, res) => {
+    const articleId = req.params.id;
+    const query = "SELECT * from articles where id = ?"
+    db.query(query, [articleId], (err, data) => {
+        if(err) {
+           return res.json(err)
+        }
+        if(data.length == 0) {
+           return res.json({Status: "Error",  Error: "No article in database with this id!"});
+        }
+        else return res.json(data)
+    })
+}

@@ -1,0 +1,32 @@
+
+.sidebar {
+    width: max-content;
+    position: fixed;
+}
+
+.content-article {
+    margin-left: 300px;
+    width: calc(100vw - 300px);
+    display: flex;
+    justify-content: center;
+
+    .cover {
+        position: fixed;
+        top: 0;
+        height: 300px;
+        width: 50%;
+        background-image: url("../resources/sport.jpeg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-x: center;
+        background-position-y: center;
+    }
+    .text {
+        margin-top: 330px;
+        width: 80%;
+        .title {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
