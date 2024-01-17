@@ -3,9 +3,9 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/js/dist/dropdown';
-import '../css/Login.css'
 import {NavLink, useNavigate} from 'react-router-dom'
 import SidebarMenu from '../components/SidebarMenu'
+import { Link } from 'react-router-dom';
 import "../css/Articles.css"
 
 const Articles = () => {
@@ -50,10 +50,30 @@ const Articles = () => {
                         {
                             articlesList.map(article => (
                                 <div className="col col-md-4">
-                                    <h1>{ article.title }</h1>
+                                    <div className='card article-card'>
+                                        <div className="image">
+
+                                        </div>
+                                        <div className="text">
+                                            <h4>{ article.title }</h4>
+                                            <h6>{ article.description }</h6>
+                                            <p>{ article.username }</p>
+                                            <p>{ article.date }</p>
+                                            <p className='see-more'> 
+                                                <Link to={`/articles/${article.id}`}>
+                                                    see article <i class="bi bi-arrow-right-short"></i>
+                                                </Link>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             ))
                         }
+                    </div>
+                    <div className='row add-button'>
+                        <button type="button" class="btn btn-success">
+                            <i class="bi bi-plus-lg"></i>
+                        </button>
                     </div>
                 </div>
             </div>

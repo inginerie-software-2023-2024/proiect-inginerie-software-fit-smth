@@ -93,7 +93,7 @@ const SidebarMenu = () => {
 
     return  (
         <div className='div main'>
-            <div className='row'>
+            <div className='row in-main'>
                 <div className='content bg-dark col-auto col-md-2 min-vh-100 d-flex justify-content-between flex-column'>
                     <div>
                         <a className='text-decoration-none text-white d-non d-sm-inline d-flex align-itemcenter ms-3 mt-2'>
@@ -110,7 +110,7 @@ const SidebarMenu = () => {
                             </li>
                             <li className="nav-item text-white fs-4 my-1 py-2 py-sm-0">
                                 <a href="/articles" className="nav-link text-white fs-5" aria-current="page">
-                                    <i class="bi bi-file-richtext-fill"></i>
+                                    <i className="bi bi-file-richtext-fill"></i>
                                     <span className='ms-3 d-none d-sm-inline'>Articles</span>
                                 </a>
                             </li>
