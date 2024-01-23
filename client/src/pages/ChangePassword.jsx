@@ -7,16 +7,24 @@ import { useNavigate } from 'react-router-dom'
 const ChangePassword = () => {
     const [values, setValues] = useState({
         newpassword: "",
-        confirmpassword: ""
+        confirmpassword: "",
+        token: ""
     })
-
+    
     const [error, setError] = useState("")
 
     const navigate = useNavigate();
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        console.log('Token from URL:', token);
+        setValues({ ...values, token });
+        console.log('Updated Values:', values);
+      }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-      
+       
         axios.post('http://localhost:3001/auth/changepassword', values)
           .then(res => {
               if(res.data.Status === 'Success'){

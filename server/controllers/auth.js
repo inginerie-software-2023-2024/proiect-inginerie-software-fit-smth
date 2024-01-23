@@ -48,7 +48,7 @@ export const login = (req, res) => {
                                 return res.json({Status: "ErrorEmail", Message: "Email-ul not verified. Check you mails."});
                             }
                         else {
-                            const id = data[0].id;
+                            const id = data[0].iduser;
                             const token = jwt.sign({id}, "jwtSecretKey")
                             return res.json({Status: "Success", Login: true, token, data})
                         }
@@ -114,13 +114,13 @@ export const RegisterSendVerification = async (req, res) => {
     );
 
     console.log('User has been created');
-    db.query("Select id from users where username = ?", [req.body.username], (err, data) => {
+    db.query("Select iduser from users where username = ?", [req.body.username], (err, data) => {
         if(err) {
             console.log(err);
             return res.json(err);
         }
         else{
-            db.query("INSERT INTO userinfo (iduser) VALUES (?)", data[0].id, (err, data) =>{
+            db.query("INSERT INTO userinfo (iduser) VALUES (?)", data[0].iduser, (err, data) =>{
                 if(err) {
                     console.log(err);
                     return res.json(err);
@@ -159,7 +159,7 @@ export const forgetpassword = async (req, res) => {
     console.log(email);
     try {
         const data = await new Promise((resolve, reject) => {
-            db.query("SELECT id FROM users WHERE mail = ?", [email], (err, data) => {
+            db.query("SELECT iduser FROM users WHERE mail = ?", [email], (err, data) => {
                 if (err) {
                     console.error(err);
                     reject(err);
@@ -176,6 +176,13 @@ export const forgetpassword = async (req, res) => {
 
         const mailSubject = 'Change password';
         const randomToken = Randomstring.generate();
+        db.query("UPDATE users set tokenPassword = ? where iduser = ?", [randomToken, data[0].iduser], (err, result) => {
+             if(err) {
+                res.json({Status: "Error", Error: "Eroare update tokenPassword"})
+             }
+             else
+                console.log("Succes la update database tokenPassword");
+        })
         console.log(randomToken);
 
         const content = `<p> Please, click <a href="http://localhost:3000/changepassword?token=${randomToken}">here</a> to change your password</p>`;
@@ -192,6 +199,8 @@ export const forgetpassword = async (req, res) => {
 export const changepassword = (req, res) => {
     const newpassword = req.body.newpassword;
     const confirmpassword = req.body.confirmpassword;
+    const token = req.body.token;
+    console.log("change password with token: " + token + ' '+ newpassword)
 
     if(typeof newpassword == 'undefined')
         return res.json({Status: "Error", Error: "Please enter new password!"});
@@ -208,14 +217,18 @@ export const changepassword = (req, res) => {
     const salt = bycript.genSaltSync(10);
     const hash = bycript.hashSync(newpassword, salt);
 
-    db.query("UPDATE users set password = ?", [hash], (err, data) => {
+    db.query("UPDATE users set password = ? where tokenPassword = ?", [hash, token], (err, data) => {
         if(err)
            {
             console.log(err);
             return res.json({Status: "Error", Error: "Error database"});
            }
-        else 
+        else {
+            console.log("Succes la updatarea parolei")
             return res.json({Status: "Success"});
+            
+        }
+           
 
     })
 
