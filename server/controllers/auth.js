@@ -32,7 +32,11 @@ export const login = (req, res) => {
               data[0].password
           );
   
-          if(!isPasswordCorrect) return res.status(400).json("Wrong username or password!");
+          if(!isPasswordCorrect) 
+          { 
+            console.log("Wrong username or password!");
+            return res.json({Status: "Error-Login", Message: "Wrong username or password!"});
+          }
           else
               {   
                   db.query("SELECT emailVerified from users where username = ?", [req.body.username], (err, result) => {
@@ -45,7 +49,7 @@ export const login = (req, res) => {
                         if(result.emailVerified == 0)
                             {
                                 console.log("Email-ul not verified. Check you mails.");
-                                return res.json({Status: "ErrorEmail", Message: "Email-ul not verified. Check you mails."});
+                                return res.json({Status: "Error-Login", Message: "Email-ul not verified. Check you mails."});
                             }
                         else {
                             const id = data[0].iduser;

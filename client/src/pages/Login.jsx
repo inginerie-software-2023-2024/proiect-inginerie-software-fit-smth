@@ -12,6 +12,7 @@ import video from '../resources/video.mp4'
 const Login = () => {
 
     const navigate = useNavigate();
+    const [message, setMessage] = useState("");
     const [error, setError] = useState("");
     const [values, setValues] = useState({
         username: "",
@@ -27,6 +28,8 @@ const Login = () => {
                 localStorage.setItem('currentUser', JSON.stringify(values.username));
                 navigate("/home");
             }
+            else if(res.data.Status === 'Error-Login')
+                setMessage(res.data.Message)
             else{
                 setError(res.data.Error)
             }
@@ -52,6 +55,9 @@ const Login = () => {
               <div class="d-flex flex-column align-items-center justify-content-center p-4">
                    <p class="fw-bold lead fw-normal mb-0">SIGN IN</p>
                  </div>
+                 <div class="text-danger">
+                    {message && message}
+                </div>
                  <div class="text-danger">
                     {error && error}
                 </div>
