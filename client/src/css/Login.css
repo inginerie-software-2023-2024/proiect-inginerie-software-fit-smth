@@ -13,3 +13,11 @@ height: calc(100% - 73px);
 height: 100%;
 }
 }
+
+.bg-primary {
+    margin-top: -50px; /* Adjust the value to your preference */
+}
+
+.link-danger{
+    text-decoration: none;
+}
