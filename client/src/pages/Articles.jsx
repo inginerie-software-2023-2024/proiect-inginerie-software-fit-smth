@@ -19,12 +19,21 @@ const Articles = () => {
     useEffect(() => {
         axios.get("http://localhost:3001/articles/getArticles").then((response) => {
             setArticlesList(response.data)
-            console.log(response.data);
         });
     }, []);
 
     const handleSearch = (event) => {
         console.log(values.searchKeyWords);
+        axios.get(`http://localhost:3001/articles/getArticles?searchKey=${values.searchKeyWords}`).then((response) => {
+            if(response.data.Status == 'Error')
+            {
+                setArticlesList([])
+            }
+            else {
+                setArticlesList(response.data)
+                console.log(response);
+            }
+        });
     }
 
     return (
@@ -51,9 +60,7 @@ const Articles = () => {
                             articlesList.map(article => (
                                 <div className="col col-md-4">
                                     <div className='card article-card'>
-                                        <div className="image">
-
-                                        </div>
+                                        <div className="image"></div>
                                         <div className="text">
                                             <h4>{ article.title }</h4>
                                             <h6>{ article.description }</h6>

@@ -8,7 +8,8 @@
     margin-left: 300px;
     width: calc(100vw - 300px);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
     .cover {
         position: fixed;
@@ -23,10 +24,55 @@
     }
     .text {
         margin-top: 330px;
-        width: 80%;
+        padding: 0 10%;
+        width: 100%;
         .title {
             display: flex;
             justify-content: center;
+        }
+    }
+
+    .comments {
+        width: 100%;
+        border-top: 1px solid black;
+        padding-top: 20px;
+
+        .comment {
+            height: max-content;
+            width: max-content;
+            max-width: 50%;
+            min-width: 30%;
+            padding: 20px;
+            margin-left: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+
+            .date {
+                color: rgba(0, 0, 0, 0.5);
+            }
+            p {
+                margin: 0;
+            }
+        }
+    }
+
+    .add-button {
+        position: fixed;
+        bottom: 10px;
+        right: 40px;
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px;
+
+        button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 }

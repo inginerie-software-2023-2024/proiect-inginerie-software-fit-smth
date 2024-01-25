@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 const ArticleDetails = () => {
     const { id } = useParams();
     const [thisArticle, setThisArticle] = useState(null);
+    const [thisArticleComments, setThisArticleComments] = useState([]);
 
     useEffect(() => {
         axios.get(`http://localhost:3001/articles/${id}`).then((response) => {
@@ -18,6 +19,21 @@ const ArticleDetails = () => {
             }
         });
     }, []);
+
+    useEffect(() => {
+        axios.get(`http://localhost:3001/articles/articleComments/${id}`).then((response) => {
+            if(response.data.Status == 'Error'){
+                setThisArticleComments([])
+            }
+            else
+            {
+                setThisArticleComments(response.data)
+            }
+        });
+    }, []);
+
+    const handleAddComment = (event) => {
+    }
 
     return (
         <section>
@@ -37,6 +53,24 @@ const ArticleDetails = () => {
                             <h4>{ thisArticle?.date }</h4>
                         </div>
                         <p>{ thisArticle?.content }</p>
+                    </div>
+                    <div className="comments">
+                        <h5>Comentarii</h5>
+                        {
+                            thisArticleComments?.map(comment => (
+                                <div className="comment">
+                                    <h6><strong>{ comment?.username }</strong></h6>
+                                    <h6 className='date'>{ comment?.date?.slice(0,10) }</h6>
+                                    <p>{ comment?.content }</p>
+                                </div>
+                            )) 
+                        }
+                    </div>
+                    <div className='row add-button'>
+                        <button type="button" class="btn btn-success"
+                            onClick = {handleAddComment} >
+                            <i class="bi bi-chat-fill"></i>
+                        </button>
                     </div>
                 </div>
             </div>
