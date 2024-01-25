@@ -3,6 +3,8 @@
 }
 
 .custom-bg-color{
+    left: 0;
+    position: fixed;
     background-color: #556970;
 }
 
