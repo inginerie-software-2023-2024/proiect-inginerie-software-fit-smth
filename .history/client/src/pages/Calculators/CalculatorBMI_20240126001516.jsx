@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './BMICalculator.css'; // Import the CSS file here
 
 function NumberInput({ label, value, onChange }) {
   return (
@@ -37,15 +36,15 @@ function BMICalculator() {
   };
 
   return (
-    <div className="bmi-calculator">
+    <div style={{ maxWidth: '300px', margin: 'auto' }}>
       <h2>BMI Calculator</h2>
       <form onSubmit={handleSubmit}>
         <NumberInput label="Weight (kg)" value={weight} onChange={setWeight} />
         <NumberInput label="Height (cm)" value={height} onChange={setHeight} />
-        <button type="submit">Calculate BMI</button>
+        <button type="submit" style={{ marginTop: '10px' }}>Calculate BMI</button>
       </form>
       {bmi && <p>Your BMI is: {bmi}</p>}
-      {error && <p className="error-message">{error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 }
