@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import App from './App';
 
-
+jest.mock('axios');
 
 describe('App with BMRCalculator', () => {
   it('renders BMR calculator', () => {
@@ -31,19 +31,19 @@ describe('App with BMRCalculator', () => {
     render(<App />);
     fireEvent.change(screen.getByLabelText('Age'), { target: { value: '25' } });
     fireEvent.change(screen.getByLabelText('Weight (kg)'), { target: { value: '70' } });
-
+    
     fireEvent.click(screen.getByText(/Calculate BMR/i));
 
     await waitFor(() => {
       expect(axios.post).toHaveBeenCalledWith('http://localhost:3001/calculate-bmr', {
-        age: '25',
-        gender: 'male', // Assuming default value
-        weight: '70',
-        height: '180',
-        bodyFat: '15' // Only include if the field exists
+          age: '25',
+          gender: 'male', // Assuming default value
+          weight: '70',
+          height: '180',
+          bodyFat: '15' // Only include if the field exists
       });
-    });
-
+  });
+  
 
     expect(await screen.findByText('Mifflin-St Jeor Equation: 1500 kcal')).toBeInTheDocument();
     expect(screen.getByText('Harris-Benedict Equation: 1550 kcal')).toBeInTheDocument();

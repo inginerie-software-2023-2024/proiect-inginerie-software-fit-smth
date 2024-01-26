@@ -3,7 +3,6 @@ import axios from 'axios';
 import App from './App';
 
 
-
 describe('App with BMRCalculator', () => {
   it('renders BMR calculator', () => {
     render(<App />);
