@@ -33,7 +33,8 @@ const UserProfile = () => {
 
   const handleSaveChanges = async (updatedData) => {
     try {
-      const response = await axios.put(`/profile/${username}`, updatedData);
+      console.log(updatedData);
+      const response = await axios.put(`http://localhost:3001/profile/update/${username}`, updatedData);
       const data = response.data;
       if (data.Status === "Success") {
         setUserData(updatedData);

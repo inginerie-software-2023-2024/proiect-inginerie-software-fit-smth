@@ -25,12 +25,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
-        {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/verify-mail" element = {<EmailVerification/>} />
         <Route path="/changepassword" element = {<ChangePassword/> } />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path={`/profile/${usernameAuth}`} element={<Profile />} />
-        {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/articles" element={<Articles />} />
         <Route path="/articles/:id" element={<ArticleDetails />} />
         <Route path="/bmi-calculator" element={<BMICalculator />} />

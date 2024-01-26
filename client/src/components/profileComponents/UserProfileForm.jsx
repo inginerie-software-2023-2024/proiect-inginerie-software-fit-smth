@@ -48,21 +48,6 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
         <>
           <form className="profile">
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">
-                Username:
-              </label>
-              <input
-                type="text"
-                name="username"
-                placeholder={"username"}
-                value={editedData.username}
-                onChange={handleChange}
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
-            </div>
-            <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">
                 First name:
               </label>
@@ -154,78 +139,6 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
               Submit
             </button>
           </form>
-          {/* 
-          <label>
-            Username:
-            <input
-              type="text"
-              name="username"
-              placeholder={"username"}
-              value={editedData.username}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Firstname:
-            <input
-              type="text"
-              name="firstname"
-              placeholder={"First Name"}
-              value={editedData.firstname}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Lastname:
-            <input
-              type="text"
-              name="lastname"
-              placeholder={"Last Name"}
-              value={editedData.lastname}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Current Weight:
-            <input
-              type="number"
-              name="current_weight"
-              placeholder={"Current Weight"}
-              value={editedData.current_weight}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Goal Weight:
-            <input
-              type="number"
-              name="goal_weight"
-              placeholder={"Goal Weight"}
-              value={editedData.goal_weight}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Date of birth:
-            <input
-              type="date"
-              name="dateofbirth"
-              placeholder={"Date of birth"}
-              value={editedData.dateofbirth}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Height:
-            <input
-              type="number"
-              name="height"
-              placeholder={"Height"}
-              value={editedData.height}
-              onChange={handleChange}
-            />
-          </label>
-          <button onClick={handleSaveChanges}>Save Changes</button> */}
         </>
       ) : (
         <>

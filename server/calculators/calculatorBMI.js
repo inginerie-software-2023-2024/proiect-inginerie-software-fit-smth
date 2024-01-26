@@ -1,3 +1,5 @@
+import db from "../database.js";
+
 const calculateBMI = (weight, height) => {
   const bmi = weight / (height * height);
   let condition = '';
