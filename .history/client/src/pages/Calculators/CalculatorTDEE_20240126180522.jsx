@@ -76,7 +76,7 @@ const TDEECalculator = () => {
             <div className="row justify-content-center">
                 <div className="col-md-6">
                     <h2 className="text-center mb-4">TDEE Calculator</h2>
-                    <TDEEInfo /> { }
+                    <TDEEInfo></TDEEInfo>
                     <form onSubmit={handleSubmit}>
                         {renderTextInput('Weight (kg)', 'weight')}
                         {renderTextInput('Height (cm)', 'height')}
@@ -85,11 +85,10 @@ const TDEECalculator = () => {
                         {renderSelectInput('Activity Level', 'activity', Object.keys(ACTIVITY_LEVELS))}
                         <button type="submit" className="btn btn-primary" disabled={!isFormValid()}>Calculate</button>
                     </form>
-                    {tdee !== null && <TDEEResult tdee={tdee} />}
-                    <TDEEFormulas /> { }
+                    {tdee && <div className="mt-3"><h3>Your TDEE: {tdee} calories/day</h3></div>}
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 
@@ -105,44 +104,6 @@ const TDEEInfo = () => (
             TDEE is calculated based on your Basal Metabolic Rate (BMR), which is the number of calories your body
             needs at rest, and your activity level. It is commonly calculated using the Harris-Benedict equation.
         </p>
-    </div>
-);
-
-const TDEEFormulas = () => (
-    <div className="tdee-formulas">
-        <h4>TDEE Calculation Formulas and Constants:</h4>
-        <ul>
-            <li>
-                <strong>BMR Calculation (Harris-Benedict Equation):</strong>
-                <ul>
-                    <li>For Males: BMR = 10 × weight (kg) + 6.25 × height (cm) - 5 × age + 5</li>
-                    <li>For Females: BMR = 10 × weight (kg) + 6.25 × height (cm) - 5 × age - 161</li>
-                </ul>
-            </li>
-            <li>
-                <strong>Activity Factors:</strong>
-                <ul>
-                    <li>Sedentary: 1.2</li>
-                    <li>Lightly active: 1.375</li>
-                    <li>Moderately active: 1.55</li>
-                    <li>Active: 1.725</li>
-                    <li>Very active: 1.9</li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-);
-
-const TDEEResult = ({ tdee }) => (
-    <div className="mt-3">
-        <div className="card">
-            <div className="card-body">
-                <h3 className="card-title">Your TDEE</h3>
-                <p className="card-text">
-                    <span className="text-success">{tdee} calories/day</span>
-                </p>
-            </div>
-        </div>
     </div>
 );
 

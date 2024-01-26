@@ -1,7 +1,7 @@
 const calculateTDEE = (weight, height, age, gender, activityLevel) => {
     // Check if any of the input values are NaN or not provided
     console.log(isNaN(activityLevel));
-    if (isNaN(weight) || isNaN(height) || isNaN(age) ||  (typeof activityLevel !== 'string' || activityLevel.trim() === '')) {
+    if (isNaN(weight) || isNaN(height) || isNaN(age) || isNaN(activityLevel)) {
         console.error('Invalid input values. Make sure all inputs are numeric.');
         return NaN; // Return NaN to indicate an error
     }

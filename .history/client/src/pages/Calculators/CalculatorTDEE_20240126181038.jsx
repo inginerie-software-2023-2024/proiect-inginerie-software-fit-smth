@@ -85,11 +85,15 @@ const TDEECalculator = () => {
                         {renderSelectInput('Activity Level', 'activity', Object.keys(ACTIVITY_LEVELS))}
                         <button type="submit" className="btn btn-primary" disabled={!isFormValid()}>Calculate</button>
                     </form>
-                    {tdee !== null && <TDEEResult tdee={tdee} />}
+                    {tdee !== null && (
+                        <div className="mt-3">
+                            <h3>Your TDEE: <span className="text-success">{tdee} calories/day</span></h3>
+                        </div>
+                    )}
                     <TDEEFormulas /> { }
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 
@@ -132,18 +136,4 @@ const TDEEFormulas = () => (
         </ul>
     </div>
 );
-
-const TDEEResult = ({ tdee }) => (
-    <div className="mt-3">
-        <div className="card">
-            <div className="card-body">
-                <h3 className="card-title">Your TDEE</h3>
-                <p className="card-text">
-                    <span className="text-success">{tdee} calories/day</span>
-                </p>
-            </div>
-        </div>
-    </div>
-);
-
 export default TDEECalculator;

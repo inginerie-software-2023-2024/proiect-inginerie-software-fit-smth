@@ -85,11 +85,10 @@ const TDEECalculator = () => {
                         {renderSelectInput('Activity Level', 'activity', Object.keys(ACTIVITY_LEVELS))}
                         <button type="submit" className="btn btn-primary" disabled={!isFormValid()}>Calculate</button>
                     </form>
-                    {tdee !== null && <TDEEResult tdee={tdee} />}
-                    <TDEEFormulas /> { }
+                    {tdee && <div className="mt-3"><h3>Your TDEE: {tdee} calories/day</h3></div>}
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 
@@ -115,8 +114,8 @@ const TDEEFormulas = () => (
             <li>
                 <strong>BMR Calculation (Harris-Benedict Equation):</strong>
                 <ul>
-                    <li>For Males: BMR = 10 × weight (kg) + 6.25 × height (cm) - 5 × age + 5</li>
-                    <li>For Females: BMR = 10 × weight (kg) + 6.25 × height (cm) - 5 × age - 161</li>
+                    <li>For Males: \(BMR = 10 \times \text{{ weight(kg) }} + 6.25 \times \text{{ height(cm) }} - 5 \times \text{{ age }} + 5\)</li>
+                    <li>For Females: \(BMR = 10 \times \text{{ weight(kg) }} + 6.25 \times \text{{ height(cm) }} - 5 \times \text{{ age }} - 161\)</li>
                 </ul>
             </li>
             <li>
@@ -132,18 +131,4 @@ const TDEEFormulas = () => (
         </ul>
     </div>
 );
-
-const TDEEResult = ({ tdee }) => (
-    <div className="mt-3">
-        <div className="card">
-            <div className="card-body">
-                <h3 className="card-title">Your TDEE</h3>
-                <p className="card-text">
-                    <span className="text-success">{tdee} calories/day</span>
-                </p>
-            </div>
-        </div>
-    </div>
-);
-
 export default TDEECalculator;

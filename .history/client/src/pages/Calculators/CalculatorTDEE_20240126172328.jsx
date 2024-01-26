@@ -11,7 +11,7 @@ const ACTIVITY_LEVELS = {
 
 const GENDERS = ['Male', 'Female'];
 
-const defaultFormData = { weight: '', height: '', age: '', gender: 'Male', activity: 'sedentary' };
+const defaultFormData = { weight: '', height: '', age: '', gender: 'male', activity: 'sedentary' };
 
 const TDEECalculator = () => {
     const [formData, setFormData] = useState(() => {
@@ -33,7 +33,6 @@ const TDEECalculator = () => {
     const calculateTDEE = async () => {
         try {
             const response = await axios.post('http://localhost:3001/calculate-tdee', formData);
-            console.log("TDEE Calculation Response:", response.data); // Log the response data
             return response.data.tdee;
         } catch (error) {
             console.error('Error:', error);
@@ -41,17 +40,11 @@ const TDEECalculator = () => {
         }
     };
 
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Submitting form data for TDEE calculation:", formData); // Log the form data
         const calculatedTDEE = await calculateTDEE();
-        if (calculatedTDEE) {
-            console.log("Calculated TDEE:", calculatedTDEE, "calories/day"); // Log the calculated TDEE
-            setTDEE(calculatedTDEE);
-        }
+        if (calculatedTDEE) setTDEE(calculatedTDEE);
     };
-
 
     const renderTextInput = (label, name) => (
         <div className="form-group">
@@ -76,7 +69,6 @@ const TDEECalculator = () => {
             <div className="row justify-content-center">
                 <div className="col-md-6">
                     <h2 className="text-center mb-4">TDEE Calculator</h2>
-                    <TDEEInfo /> { }
                     <form onSubmit={handleSubmit}>
                         {renderTextInput('Weight (kg)', 'weight')}
                         {renderTextInput('Height (cm)', 'height')}
@@ -85,65 +77,11 @@ const TDEECalculator = () => {
                         {renderSelectInput('Activity Level', 'activity', Object.keys(ACTIVITY_LEVELS))}
                         <button type="submit" className="btn btn-primary" disabled={!isFormValid()}>Calculate</button>
                     </form>
-                    {tdee !== null && <TDEEResult tdee={tdee} />}
-                    <TDEEFormulas /> { }
+                    {tdee && <div className="mt-3"><h3>Your TDEE: {tdee} calories/day</h3></div>}
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
-
-const TDEEInfo = () => (
-    <div className="tdee-info">
-        <h4>What is TDEE (Total Daily Energy Expenditure)?</h4>
-        <p>
-            TDEE represents the total number of calories that your body requires to maintain its current weight,
-            taking into account your daily activities and exercise level.
-        </p>
-        <h4>How is TDEE Calculated?</h4>
-        <p>
-            TDEE is calculated based on your Basal Metabolic Rate (BMR), which is the number of calories your body
-            needs at rest, and your activity level. It is commonly calculated using the Harris-Benedict equation.
-        </p>
-    </div>
-);
-
-const TDEEFormulas = () => (
-    <div className="tdee-formulas">
-        <h4>TDEE Calculation Formulas and Constants:</h4>
-        <ul>
-            <li>
-                <strong>BMR Calculation (Harris-Benedict Equation):</strong>
-                <ul>
-                    <li>For Males: BMR = 10 × weight (kg) + 6.25 × height (cm) - 5 × age + 5</li>
-                    <li>For Females: BMR = 10 × weight (kg) + 6.25 × height (cm) - 5 × age - 161</li>
-                </ul>
-            </li>
-            <li>
-                <strong>Activity Factors:</strong>
-                <ul>
-                    <li>Sedentary: 1.2</li>
-                    <li>Lightly active: 1.375</li>
-                    <li>Moderately active: 1.55</li>
-                    <li>Active: 1.725</li>
-                    <li>Very active: 1.9</li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-);
-
-const TDEEResult = ({ tdee }) => (
-    <div className="mt-3">
-        <div className="card">
-            <div className="card-body">
-                <h3 className="card-title">Your TDEE</h3>
-                <p className="card-text">
-                    <span className="text-success">{tdee} calories/day</span>
-                </p>
-            </div>
-        </div>
-    </div>
-);
 
 export default TDEECalculator;
