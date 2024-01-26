@@ -162,7 +162,7 @@ const BMIInfo = () => (
 
 const BMIFormulasInfo = () => (
   <div className="mt-3 mb-3">
-    <h3>How is BMI Calculated?</h3>
+    <h3>How BMI is Calculated?</h3>
     <p>
       BMI (Body Mass Index) is a simple calculation using a person's height and weight. The formulas to calculate BMI based on the two most commonly used unit systems are:
     </p>
@@ -179,40 +179,31 @@ const BMIFormulasInfo = () => (
     </p>
   </div>
 );
-
+  
 const Result = ({ error, result }) => {
-  const getBMIStyle = (bmi) => {
-    const baseStyle = {
-      padding: '10px',
-      borderRadius: '5px',
-      color: 'white',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      margin: '5px 0',
-    };
-
-    if (bmi < 18.5) return { ...baseStyle, backgroundColor: 'blue' }; // Underweight
-    if (bmi >= 18.5 && bmi <= 24.9) return { ...baseStyle, backgroundColor: 'green' }; // Normal weight
-    if (bmi >= 25 && bmi <= 29.9) return { ...baseStyle, backgroundColor: 'orange' }; // Overweight
-    return { ...baseStyle, backgroundColor: 'red' }; // Obesity
+  const getBMIColor = (bmi) => {
+    if (bmi < 18.5) return 'blue'; // Underweight
+    if (bmi >= 18.5 && bmi <= 24.9) return 'green'; // Normal weight
+    if (bmi >= 25 && bmi <= 29.9) return 'orange'; // Overweight
+    return 'red'; // Obesity
   };
 
-  const bmiStyle = result ? getBMIStyle(result.bmi) : {};
+  const bmiColor = result ? getBMIColor(result.bmi) : 'black';
 
   return (
     <div className="mt-3">
       {error && <div className="alert alert-danger">{error}</div>}
       {result && (
-        <div style={bmiStyle}>
+        <>
           <p>
-            <strong>Your BMI is:</strong>
-            <span> {result.bmi}</span>
+            <strong>Your BMI is:</strong> 
+            <span style={{ color: bmiColor }}> {result.bmi}</span>
           </p>
           <p>
-            <strong>You are currently:</strong>
-            <span> {result.condition}</span>
+            <strong>You are currently:</strong> 
+            <span style={{ color: bmiColor }}> {result.condition}</span>
           </p>
-        </div>
+        </>
       )}
     </div>
   );

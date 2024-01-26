@@ -65,7 +65,7 @@ const BMICalculator = () => {
       console.log(`BMI Calculation Data:
       Height: ${heightInMeters} meters (${selectedUnit === 'imperial' ? `${inputs.feet} feet ${inputs.inches} inches` : `${inputs.height} cm`})
       Weight: ${weightInKg} kg (${selectedUnit === 'imperial' ? `${inputs.pounds} lbs` : `${inputs.weight} kg`})`);
-
+      
       const response = await axios.post('http://localhost:3001/calculate-bmi', {
         height: heightInMeters,
         weight: weightInKg,
@@ -83,8 +83,6 @@ const BMICalculator = () => {
 
   return (
     <div className="container mt-5">
-      <BMIInfo /> {/* New component for BMI information */}
-
       <div className="row justify-content-center">
         <div className="col-lg-6 col-md-8">
           <h2 className="text-center">BMI Calculator</h2>
@@ -123,7 +121,6 @@ const BMICalculator = () => {
           </form>
           <Result error={error} result={result} selectedUnit={selectedUnit} />
         </div>
-        <BMIFormulasInfo /> {/* New component for BMI formula information */}
       </div>
     </div>
   );
@@ -144,79 +141,20 @@ const InputField = ({ id, label, value, onChange }) => (
   </div>
 );
 
-const BMIInfo = () => (
-  <div className="mt-3 mb-3">
-    <h3>What is BMI?</h3>
-    <p>
-      Body Mass Index (BMI) is a measure calculated using your height and weight to estimate how much body fat you have.
-    </p>
-    <h4>BMI Categories:</h4>
-    <ul>
-      <li><strong>Underweight:</strong> BMI is less than 18.5</li>
-      <li><strong>Normal weight:</strong> BMI is 18.5 to 24.9</li>
-      <li><strong>Overweight:</strong> BMI is 25 to 29.9</li>
-      <li><strong>Obesity:</strong> BMI is 30 or more</li>
-    </ul>
+const Result = ({ error, result }) => (
+  <div className="mt-3">
+    {error && <div className="alert alert-danger">{error}</div>}
+    {result && (
+      <>
+        <p>
+          <strong>Your BMI is:</strong> {result.bmi}
+        </p>
+        <p>
+          <strong>You are currently:</strong> {result.condition}
+        </p>
+      </>
+    )}
   </div>
 );
-
-const BMIFormulasInfo = () => (
-  <div className="mt-3 mb-3">
-    <h3>How is BMI Calculated?</h3>
-    <p>
-      BMI (Body Mass Index) is a simple calculation using a person's height and weight. The formulas to calculate BMI based on the two most commonly used unit systems are:
-    </p>
-    <ul>
-      <li>
-        <strong>Metric:</strong> BMI = weight (kg) / (height (m) x height (m))
-      </li>
-      <li>
-        <strong>Imperial:</strong> BMI = weight (lb) / (height (in) x height (in)) x 703
-      </li>
-    </ul>
-    <p>
-      The resulting number indicates one of four broad categories: underweight (below 18.5), normal weight (18.5 to 24.9), overweight (25 to 29.9), and obese (30 or above).
-    </p>
-  </div>
-);
-
-const Result = ({ error, result }) => {
-  const getBMIStyle = (bmi) => {
-    const baseStyle = {
-      padding: '10px',
-      borderRadius: '5px',
-      color: 'white',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      margin: '5px 0',
-    };
-
-    if (bmi < 18.5) return { ...baseStyle, backgroundColor: 'blue' }; // Underweight
-    if (bmi >= 18.5 && bmi <= 24.9) return { ...baseStyle, backgroundColor: 'green' }; // Normal weight
-    if (bmi >= 25 && bmi <= 29.9) return { ...baseStyle, backgroundColor: 'orange' }; // Overweight
-    return { ...baseStyle, backgroundColor: 'red' }; // Obesity
-  };
-
-  const bmiStyle = result ? getBMIStyle(result.bmi) : {};
-
-  return (
-    <div className="mt-3">
-      {error && <div className="alert alert-danger">{error}</div>}
-      {result && (
-        <div style={bmiStyle}>
-          <p>
-            <strong>Your BMI is:</strong>
-            <span> {result.bmi}</span>
-          </p>
-          <p>
-            <strong>You are currently:</strong>
-            <span> {result.condition}</span>
-          </p>
-        </div>
-      )}
-    </div>
-  );
-};
-
 
 export default BMICalculator;

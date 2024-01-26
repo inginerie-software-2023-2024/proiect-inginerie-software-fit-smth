@@ -162,7 +162,7 @@ const BMIInfo = () => (
 
 const BMIFormulasInfo = () => (
   <div className="mt-3 mb-3">
-    <h3>How is BMI Calculated?</h3>
+    <h3>How BMI is Calculated?</h3>
     <p>
       BMI (Body Mass Index) is a simple calculation using a person's height and weight. The formulas to calculate BMI based on the two most commonly used unit systems are:
     </p>
@@ -212,7 +212,7 @@ const Result = ({ error, result }) => {
             <strong>You are currently:</strong>
             <span> {result.condition}</span>
           </p>
-        </div>
+        </>
       )}
     </div>
   );
