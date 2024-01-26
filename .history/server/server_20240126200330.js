@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken"
 import calculateTDEE from "./calculators/calculatorTDEE.js"
 import calculateBMI from './calculators/calculatorBMI.js';
 import calculateBMR from './calculators/calculatorBMR.js';
+import { stringify } from 'querystring';
 const app = express()
 
 app.use(cors())
@@ -145,8 +146,9 @@ app.post('/calculate-bmr', (req, res) => {
   const { age, gender, weight, height } = req.body;
 
   // Use the imported BMR calculation function
-  let BMR = calculateBMR(age, gender, weight, height);
-
+  var BMR = calculateBMR(age, gender, weight, height);
+  var BMR = JSON.stringify(BMR);
+  
   console.log(`Calculated BMR: ${BMR} (Gender: ${gender}, Age: ${age}, Weight: ${weight}, Height: ${height})`);
   res.json({ BMR: BMR });
 });

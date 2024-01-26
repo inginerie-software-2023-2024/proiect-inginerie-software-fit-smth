@@ -140,14 +140,16 @@ app.post('/calculate-tdee', (req, res) => {
 });
 
 app.post('/calculate-bmr', (req, res) => {
-  console.log("Received request for BMR calculation:", req.body);
-
   const { age, gender, weight, height } = req.body;
 
-  // Use the imported BMR calculation function
-  let BMR = calculateBMR(age, gender, weight, height);
+  // BMR Calculation (Mifflin-St Jeor Equation)
+  let BMR;
+  if (gender === 'male') {
+      BMR = 10 * weight + 6.25 * height - 5 * age + 5;
+  } else if (gender === 'female') {
+      BMR = 10 * weight + 6.25 * height - 5 * age - 161;
+  }
 
-  console.log(`Calculated BMR: ${BMR} (Gender: ${gender}, Age: ${age}, Weight: ${weight}, Height: ${height})`);
   res.json({ BMR: BMR });
 });
 

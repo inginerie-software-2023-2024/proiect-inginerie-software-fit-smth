@@ -145,9 +145,12 @@ app.post('/calculate-bmr', (req, res) => {
   const { age, gender, weight, height } = req.body;
 
   // Use the imported BMR calculation function
-  let BMR = calculateBMR(age, gender, weight, height);
+  console.log(calculateBMR(age, gender, weight, height));
+  var BMR = calculateBMR(age, gender, weight, height);
+  var BMRString = JSON.stringify(BMR);
+  console.log(BMR.harrisBenedict)
 
-  console.log(`Calculated BMR: ${BMR} (Gender: ${gender}, Age: ${age}, Weight: ${weight}, Height: ${height})`);
+  console.log(`Calculated BMR: ${BMRString} (Gender: ${gender}, Age: ${age}, Weight: ${weight}, Height: ${height})`);
   res.json({ BMR: BMR });
 });
 

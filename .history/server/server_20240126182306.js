@@ -139,13 +139,13 @@ app.post('/calculate-tdee', (req, res) => {
   }
 });
 
-app.post('/calculate-bmr', (req, res) => {
+app.post('/calculateBMR', (req, res) => {
   console.log("Received request for BMR calculation:", req.body);
 
   const { age, gender, weight, height } = req.body;
 
   // Use the imported BMR calculation function
-  let BMR = calculateBMR(age, gender, weight, height);
+  const BMR = calculateBMR(age, gender, weight, height);
 
   console.log(`Calculated BMR: ${BMR} (Gender: ${gender}, Age: ${age}, Weight: ${weight}, Height: ${height})`);
   res.json({ BMR: BMR });
