@@ -87,3 +87,31 @@ export const addArticleComment = (req, res) => {
         }
     })
 }
+
+export const deleteArticle = (req, res) => {
+    const articleId = req.params.id;
+    const query = "DELETE FROM articles where id = ?";
+    db.query(query, [articleId], (err, data) => {
+        if(err) {
+            return res.json(err);
+        }
+        else {
+            console.log("Article has been deleted")
+            return res.status(200).json("Article has been deleted");
+        }
+    })
+}
+
+export const deleteComment = (req, res) => {
+    const commentId = req.params.id;
+    const query = "DELETE FROM comments where id = ?";
+    db.query(query, [commentId], (err, data) => {
+        if(err) {
+            return res.json(err);
+        }
+        else {
+            console.log("Comment has been deleted")
+            return res.status(200).json("Comment has been deleted");
+        }
+    })
+}

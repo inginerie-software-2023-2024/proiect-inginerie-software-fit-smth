@@ -21,6 +21,7 @@
         background-size: cover;
         background-position-x: center;
         background-position-y: center;
+        border-radius: 0 0 20px 20px;
     }
     .text {
         margin-top: 330px;
@@ -35,6 +36,12 @@
         }
         .user-details {
             color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            button {
+                height: 50px;
+            }
         }
     }
 
@@ -60,6 +67,11 @@
             }
             p {
                 margin: 0;
+            }
+            .top-user {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
             }
         }
     }

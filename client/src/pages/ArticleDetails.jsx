@@ -53,7 +53,6 @@ const ArticleDetails = () => {
     }
 
     const submitAddComment = (event) => {
-        console.log(values?.content);
         values.username = localStorage.getItem('currentUser').slice(1, -1);
         values.id_article = thisArticle.id
         const today = new Date();
@@ -82,17 +81,44 @@ const ArticleDetails = () => {
                 })
         })
         .catch(err => console.log(err))
-        // .finally(
-        //     axios.get(`http://localhost:3001/articles/articleComments/${id}`).then((response) => {
-        //         if(response.data.Status == 'Error'){
-        //             setThisArticleComments([])
-        //         }
-        //     else
-        //         {
-        //             setThisArticleComments(response.data)
-        //         }
-        //     })
-        // )
+    }
+
+    const deleteArticle = (event) => {
+        axios.delete(`http://localhost:3001/articles/deleteArticle/${thisArticle.id}`)
+        .then(res => {
+            if(res.data.Status === 'Success'){
+                navigate(`/articles`);
+            }
+            else{
+                setError(res.data.Error)
+            }
+            navigate(`/articles`);
+        })
+        .catch(err => console.log(err))
+    }
+
+    const deleteComment = (comment) => {
+        console.log(comment);
+        axios.delete(`http://localhost:3001/articles/deleteComment/${comment.id}`)
+        .then(res => {
+            if(res.data.Status === 'Success'){
+                navigate(`/articles/${thisArticle.id}`);
+            }
+            else{
+                setError(res.data.Error)
+            }
+            axios.get(`http://localhost:3001/articles/articleComments/${id}`).then((response) => {
+                if(response.data.Status == 'Error'){
+                    setThisArticleComments([])
+                }
+                else
+                    {
+                        setThisArticleComments(response.data)
+                    }
+                })
+            navigate(`/articles/${thisArticle.id}`);
+        })
+        .catch(err => console.log(err))
     }
 
     return (
@@ -106,8 +132,23 @@ const ArticleDetails = () => {
                     <div className="text">
                         <h1 className='title'>{ thisArticle?.title }</h1>
                         <div className='user-details'>
-                            <h4>{ thisArticle?.username }</h4>
-                            <h4>{ thisArticle?.date }</h4>
+                            <section>
+                                <h4>{ thisArticle?.username }</h4>
+                                <h4>{ thisArticle?.date }</h4>
+                            </section>
+                            {
+                                thisArticle?.username === localStorage?.getItem('currentUser')?.slice(1,-1) ?
+                                (
+                                    <button type="button" class="btn btn-danger"
+                                        onClick = {deleteArticle} >
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                )
+                                :
+                                (
+                                    <section></section>
+                                )
+                            }
                         </div>
                         <div className='description'>
                             <p>{ thisArticle?.description }</p>
@@ -119,8 +160,25 @@ const ArticleDetails = () => {
                         {
                             thisArticleComments?.map(comment => (
                                 <div className="comment">
-                                    <h6><strong>{ comment?.username }</strong></h6>
-                                    <h6 className='date'>{ comment?.date?.slice(0,10) }</h6>
+                                    <div className='top-user'>
+                                        <section>
+                                            <h6><strong>{ comment?.username }</strong></h6>
+                                            <h6 className='date'>{ comment?.date?.slice(0,10) }</h6>
+                                        </section>
+                                        {
+                                            comment?.username === localStorage?.getItem('currentUser')?.slice(1,-1) ?
+                                            (
+                                                <button type="button" class="btn btn-danger"
+                                                    onClick = {() => deleteComment(comment)} >
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            )
+                                            :
+                                            (
+                                                <section></section>
+                                            )
+                                        }
+                                    </div>
                                     <p>{ comment?.content }</p>
                                 </div>
                             )) 
