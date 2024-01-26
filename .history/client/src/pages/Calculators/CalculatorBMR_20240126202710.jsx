@@ -44,31 +44,15 @@ function BMRCalculator() {
         <div className="container mt-5">
             <h2 className="mb-3">BMR Calculator</h2>
 
-            {/* BMR Information Section with Formulas */}
+            {/* BMR Information Section */}
             <div className="mb-4">
                 <p>Basal Metabolic Rate (BMR) is an estimate of how many calories your body needs to function at rest. It represents the minimum amount of energy required to keep your body functioning, including breathing and keeping your heart beating.</p>
                 <p>We use the following formulas to calculate BMR:</p>
                 <ul>
-                    <li>
-                        <strong>Mifflin-St Jeor Equation:</strong>
-                        <ul>
-                            <li>For males: BMR = 10 * weight(kg) + 6.25 * height(cm) - 5 * age(y) + 5</li>
-                            <li>For females: BMR = 10 * weight(kg) + 6.25 * height(cm) - 5 * age(y) - 161</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>Harris-Benedict Equation:</strong>
-                        <ul>
-                            <li>For males: BMR = 88.362 + 13.397 * weight(kg) + 4.799 * height(cm) - 5.677 * age(y)</li>
-                            <li>For females: BMR = 447.593 + 9.247 * weight(kg) + 3.098 * height(cm) - 4.330 * age(y)</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>Schofield Equation:</strong> Based on weight and age range (more suitable for children and adolescents).
-                    </li>
-                    <li>
-                        <strong>Katch-McArdle Formula:</strong> BMR = 370 + 21.6 * Lean Body Mass(kg) (requires body fat percentage).
-                    </li>
+                    <li>Mifflin-St Jeor Equation: A modern formula that considers weight, height, age, and gender.</li>
+                    <li>Harris-Benedict Equation: An older formula that also considers weight, height, age, and gender but may overestimate BMR.</li>
+                    <li>Schofield Equation: Based on weight and age range.</li>
+                    <li>Katch-McArdle Formula: Requires body fat percentage and is based on lean body mass.</li>
                 </ul>
             </div>
 
