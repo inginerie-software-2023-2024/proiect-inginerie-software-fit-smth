@@ -9,6 +9,24 @@ const ACTIVITY_LEVELS = {
     veryActive: "Very active (very hard exercise & physical job or 2x training)"
 };
 
+const InputField = ({ label, name, value, onChange }) => (
+    <div>
+        <label>{label}: </label>
+        <input type="number" name={name} value={value} onChange={onChange} />
+    </div>
+);
+
+const SelectField = ({ label, name, value, onChange, options }) => (
+    <div>
+        <label>{label}: </label>
+        <select name={name} value={value} onChange={onChange}>
+            {Object.entries(options).map(([key, text]) => (
+                <option key={key} value={key}>{text}</option>
+            ))}
+        </select>
+    </div>
+);
+
 const TDEECalculator = () => {
     const [formData, setFormData] = useState(() => {
         const savedData = localStorage.getItem('tdeeFormData');
@@ -16,26 +34,35 @@ const TDEECalculator = () => {
     });
     const [tdee, setTDEE] = useState(null);
 
+    // Save data to local storage whenever formData changes
     useEffect(() => {
         localStorage.setItem('tdeeFormData', JSON.stringify(formData));
     }, [formData]);
 
+
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setFormData(prevState => ({ ...prevState, [name]: value }));
+        setFormData(prevState => {
+            const updatedState = { ...prevState, [name]: value };
+            console.log(`Form Data Updated - ${name}: `, updatedState);
+            return updatedState;
+        });
     };
-
-    const isFormValid = () => formData.weight && formData.height && formData.age;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log('Submitting TDEE Calculation with Data:', formData);
+
         try {
             const response = await axios.post('http://localhost:3001/calculate-tdee', formData);
             setTDEE(response.data.tdee);
+            console.log('TDEE Calculation Response:', response.data);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error in TDEE Calculation:', error);
         }
     };
+
+    const isFormValid = () => formData.weight && formData.height && formData.age;
 
     return (
         <div className="container">
@@ -44,31 +71,19 @@ const TDEECalculator = () => {
                     <h2 className="text-center mb-4">TDEE Calculator</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
-                            <label>Weight (kg): </label>
-                            <input type="number" name="weight" className="form-control" value={formData.weight} onChange={handleChange} />
+                            <InputField label="Weight (kg)" name="weight" value={formData.weight} onChange={handleChange} />
                         </div>
                         <div className="form-group">
-                            <label>Height (cm): </label>
-                            <input type="number" name="height" className="form-control" value={formData.height} onChange={handleChange} />
+                            <InputField label="Height (cm)" name="height" value={formData.height} onChange={handleChange} />
                         </div>
                         <div className="form-group">
-                            <label>Age: </label>
-                            <input type="number" name="age" className="form-control" value={formData.age} onChange={handleChange} />
+                            <InputField label="Age" name="age" value={formData.age} onChange={handleChange} />
                         </div>
                         <div className="form-group">
-                            <label>Gender: </label>
-                            <select name="gender" className="form-control" value={formData.gender} onChange={handleChange}>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
+                            <SelectField label="Gender" name="gender" value={formData.gender} onChange={handleChange} options={{ male: 'Male', female: 'Female' }} />
                         </div>
                         <div className="form-group">
-                            <label>Activity Level: </label>
-                            <select name="activity" className="form-control" value={formData.activity} onChange={handleChange}>
-                                {Object.entries(ACTIVITY_LEVELS).map(([key, text]) => (
-                                    <option key={key} value={key}>{text}</option>
-                                ))}
-                            </select>
+                            <SelectField label="Activity Level" name="activity" value={formData.activity} onChange={handleChange} options={ACTIVITY_LEVELS} />
                         </div>
                         <button type="submit" className="btn btn-primary" disabled={!isFormValid()}>Calculate</button>
                     </form>
