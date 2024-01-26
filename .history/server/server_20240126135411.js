@@ -5,7 +5,6 @@ import authRoutes from "./routes/auth.js";
 import multer from "multer";
 import path from "path";
 import jwt from "jsonwebtoken"
-import calculateTDEE from "./calculators/calculatorTDEE.js"
 const app = express()
 
 app.use(cors())

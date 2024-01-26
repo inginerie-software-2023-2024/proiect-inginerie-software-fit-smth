@@ -7,7 +7,6 @@ import EmailVerification from './pages/EmailVerification';
 import ForgotPassword from './pages/ForgotPassword';
 import ChangePassword from './pages/ChangePassword';
 import BMICalculator from './pages/Calculators/CalculatorBMI';
-import TDEECalculator from './pages/Calculators/CalculatorTDEE';
 
 function App() {
   return (
@@ -20,7 +19,7 @@ function App() {
             <Route path="/verify-mail" element = {<EmailVerification/>} />
             <Route path="/changepassword" element = {<ChangePassword/> } />
             <Route path="/forgotpassword" element={<ForgotPassword />} /> */}
-            <Route path="/tdee-calculator" element={<TDEECalculator />} />
+            <Route path="/tdee-calculator" element={<BMICalculator />} />
          </Routes>
     </>
   );
