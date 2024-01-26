@@ -11,6 +11,9 @@ import Profile from "./pages/UserProfile";
 // import Profile from "./pages/Profile";
 import Articles from "./pages/Articles";
 import ArticleDetails from "./pages/ArticleDetails";
+import BMICalculator from './pages/Calculators/CalculatorBMI';
+import TDEECalculator from './pages/Calculators/CalculatorTDEE';
+import BMRCalculator from './pages/Calculators/CalculatorBMR';
 
 function App() {
   var auth = localStorage.getItem("currentUser");
@@ -30,9 +33,11 @@ function App() {
         {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/articles" element={<Articles />} />
         <Route path="/articles/:id" element={<ArticleDetails />} />
+        <Route path="/bmi-calculator" element={<BMICalculator />} />
+        <Route path="/bmr-calculator" element={<BMRCalculator />} />
+        <Route path="/tdee-calculator" element={<TDEECalculator />} />
       </Routes>
-    </>
-  );
+    </>)
 }
 
 export default App;

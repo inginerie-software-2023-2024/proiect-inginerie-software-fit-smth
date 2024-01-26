@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "ws": "^8.16.0"
+  },
+  "scripts": {
+    "start": "concurrently \"cd client && npm start\" \"cd server && npm start\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

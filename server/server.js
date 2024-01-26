@@ -7,6 +7,9 @@ import path from "path";
 import jwt from "jsonwebtoken"
 import profileRoutes from "./routes/profile.js";
 import articlesRoutes from "./routes/articles.js";
+import calculateTDEE from "./calculators/calculatorTDEE.js"
+import calculateBMI from './calculators/calculatorBMI.js';
+import calculateBMR from './calculators/calculatorBMR.js';
 
 const app = express()
 
@@ -109,7 +112,50 @@ const storage = multer.diskStorage({
   app.get('/checkauth', verifyJwt, (req, res) => {
       return res.json("Authenticated");
   })
-  
+
+
+// Calculators - BEGIN
+// Import the calculateBMI function if you're using it from a separate module
+app.post('/calculate-bmi', (req, res) => {
+  const { weight, height } = req.body;
+
+  if (!weight || !height || weight <= 0 || height <= 0) {
+    return res.status(400).json({ error: "Invalid input. Weight and height must be positive numbers." });
+  }
+  console.log(weight, height);
+  try {
+    const result = calculateBMI(weight, height);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+app.post('/calculate-tdee', (req, res) => {
+  try {
+    const { weight, height, age, gender, activity } = req.body;
+    const tdee = calculateTDEE(weight, height, age, gender, activity);
+    res.json({ tdee });
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+
+app.post('/calculate-bmr', (req, res) => {
+  console.log("Received request for BMR calculation:", req.body);
+
+  const { age, gender, weight, height } = req.body;
+
+  // Use the imported BMR calculation function
+  let BMR = calculateBMR(age, gender, weight, height);
+
+  console.log(`Calculated BMR: ${BMR} (Gender: ${gender}, Age: ${age}, Weight: ${weight}, Height: ${height})`);
+  res.json({ BMR: BMR });
+});
+
+// Calculators - END
+
 app.listen(3001, () => {
   console.log("Server started on port 3001");
 });
