@@ -57,32 +57,32 @@ const SidebarMenu = () => {
               </li>
               <li class="nav-item text-white fs-4 my-1 py-2 py-sm-0">
                 <a
-                  href="#"
+                  href="/bmi-calculator"
                   class="nav-link text-white fs-5"
                   aria-current="page"
                 >
                   <i className="bi bi-table"></i>
-                  <span className="ms-3 d-none d-sm-inline">Dashboard</span>
+                  <span className="ms-3 d-none d-sm-inline">BMI Calculator</span>
                 </a>
               </li>
               <li class="nav-item text-white fs-4 my-1 py-2 py-sm-0">
                 <a
-                  href="#"
+                  href="/bmr-calculator"
                   class="nav-link text-white fs-5"
                   aria-current="page"
                 >
-                  <i className="bi bi-grid"></i>
-                  <span className="ms-3 d-none d-sm-inline">Product</span>
+                  <i className="bi bi-table"></i>
+                  <span className="ms-3 d-none d-sm-inline">BMR Calculator</span>
                 </a>
               </li>
               <li class="nav-item text-white fs-4 my-1 py-2 py-sm-0">
                 <a
-                  href="#"
+                  href="/tdee-calculator"
                   class="nav-link text-white fs-5"
                   aria-current="page"
                 >
-                  <i className="bi bi-people"></i>
-                  <span className="ms-3 d-none d-sm-inline">Customers</span>
+                  <i className="bi bi-table"></i>
+                  <span className="ms-3 d-none d-sm-inline">TDEE Calculator</span>
                 </a>
               </li>
             </ul>

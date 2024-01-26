@@ -34,3 +34,23 @@
     color: red;
   }
   
+.side-bar {
+  /* position: fixed;
+  left: 0;
+  top: 0; */
+  width: 300px;
+}
+
+.new-bmi {
+  margin-left: 300px !important; 
+  padding: 40px;
+  overflow-y: scroll;
+}
+
+.fix {
+  height: 100vh;
+}
+
+.inputs-bmr {
+  width: 50%;
+}

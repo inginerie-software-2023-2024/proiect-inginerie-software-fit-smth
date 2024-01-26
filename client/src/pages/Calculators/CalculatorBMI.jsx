@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import SidebarMenu from '../../components/SidebarMenu.jsx';
+import '../../css/BMICalculator.css';
 
 // Custom function to load data from local storage
 const loadFromLocalStorage = () => {
@@ -82,48 +84,53 @@ const BMICalculator = () => {
   const isValidInput = () => inputs.height > 0 && inputs.weight > 0;
 
   return (
-    <div className="container mt-5">
-      <BMIInfo /> {/* New component for BMI information */}
+    <div className='row fix'>
+      <div className='sidebar'>
+        <SidebarMenu />
+      </div>
+      <div className="new-bmi">
+        <BMIInfo /> {/* New component for BMI information */}
 
-      <div className="row justify-content-center">
-        <div className="col-lg-6 col-md-8">
-          <h2 className="text-center">BMI Calculator</h2>
-          <form onSubmit={handleSubmit} className="mt-4">
-            <div className="mb-3">
-              <label htmlFor="unit" className="form-label">
-                Select Units:
-              </label>
-              <select
-                id="unit"
-                className="form-select"
-                value={selectedUnit}
-                onChange={handleUnitChange}
-              >
-                <option value="metric">Metric (cm, kg)</option>
-                <option value="imperial">Imperial (ft, in, lbs)</option>
-              </select>
-            </div>
-            {selectedUnit === 'metric' ? (
-              <>
-                <InputField id="height" label="Height (in cm)" value={inputs.height} onChange={handleInputChange} />
-                <InputField id="weight" label="Weight (in kg)" value={inputs.weight} onChange={handleInputChange} />
-              </>
-            ) : (
-              <>
-                <InputField id="feet" label="Feet" value={inputs.feet} onChange={handleInputChange} />
-                <InputField id="inches" label="Inches" value={inputs.inches} onChange={handleInputChange} />
-                <InputField id="pounds" label="Weight (in lbs)" value={inputs.pounds} onChange={handleInputChange} />
-              </>
-            )}
-            <div className="text-center">
-              <button type="submit" className="btn btn-primary" disabled={!isValidInput()}>
-                Calculate BMI
-              </button>
-            </div>
-          </form>
-          <Result error={error} result={result} selectedUnit={selectedUnit} />
+        <div className="row">
+          <div className="col-lg-6 col-md-8">
+            <h2 className="text-center">BMI Calculator</h2>
+            <form onSubmit={handleSubmit} className="mt-4">
+              <div className="mb-3">
+                <label htmlFor="unit" className="form-label">
+                  Select Units:
+                </label>
+                <select
+                  id="unit"
+                  className="form-select"
+                  value={selectedUnit}
+                  onChange={handleUnitChange}
+                >
+                  <option value="metric">Metric (cm, kg)</option>
+                  <option value="imperial">Imperial (ft, in, lbs)</option>
+                </select>
+              </div>
+              {selectedUnit === 'metric' ? (
+                <>
+                  <InputField id="height" label="Height (in cm)" value={inputs.height} onChange={handleInputChange} />
+                  <InputField id="weight" label="Weight (in kg)" value={inputs.weight} onChange={handleInputChange} />
+                </>
+              ) : (
+                <>
+                  <InputField id="feet" label="Feet" value={inputs.feet} onChange={handleInputChange} />
+                  <InputField id="inches" label="Inches" value={inputs.inches} onChange={handleInputChange} />
+                  <InputField id="pounds" label="Weight (in lbs)" value={inputs.pounds} onChange={handleInputChange} />
+                </>
+              )}
+              <div className="text-center">
+                <button type="submit" className="btn btn-primary" disabled={!isValidInput()}>
+                  Calculate BMI
+                </button>
+              </div>
+            </form>
+            <Result error={error} result={result} selectedUnit={selectedUnit} />
+          </div>
+          <BMIFormulasInfo /> {/* New component for BMI formula information */}
         </div>
-        <BMIFormulasInfo /> {/* New component for BMI formula information */}
       </div>
     </div>
   );

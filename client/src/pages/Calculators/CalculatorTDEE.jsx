@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import SidebarMenu from '../../components/SidebarMenu.jsx';
+import '../../css/BMICalculator.css';
 
 const ACTIVITY_LEVELS = {
     sedentary: "Sedentary (little or no exercise)",
@@ -72,10 +74,13 @@ const TDEECalculator = () => {
     );
 
     return (
-        <div className="container">
-            <div className="row justify-content-center">
+        <div className="row fix">
+            <div className='sidebar'>
+                <SidebarMenu />
+            </div>
+            <div className="new-bmi">
                 <div className="col-md-6">
-                    <h2 className="text-center mb-4">TDEE Calculator</h2>
+                    <h2 className="">TDEE Calculator</h2>
                     <TDEEInfo /> { }
                     <form onSubmit={handleSubmit}>
                         {renderTextInput('Weight (kg)', 'weight')}
@@ -89,7 +94,7 @@ const TDEECalculator = () => {
                     <TDEEFormulas /> { }
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 
