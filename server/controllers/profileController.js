@@ -5,7 +5,7 @@ export const getProfile = (req, res) => {
   console.log("Received request for user profile with username:", username);
 
   const query = `
-    SELECT users.email, userinfo.firstname, userinfo.lastname, userinfo.current_weight, userinfo.goal_weight, userinfo.dateofbirth, userinfo.height
+    SELECT users.mail, userinfo.firstname, userinfo.lastname, userinfo.current_weight, userinfo.goal_weight, userinfo.dateofbirth, userinfo.height
     FROM users  
     INNER JOIN userinfo ON users.iduser = userinfo.iduser
     WHERE users.username = ?
@@ -28,7 +28,7 @@ export const getProfile = (req, res) => {
 
     const userProfile = {
       username: username,
-      email: data[0].email,
+      email: data[0].mail,
       firstname: data[0].firstname,
       lastname: data[0].lastname,
       current_weight: data[0].current_weight,
@@ -66,7 +66,7 @@ export const updateProfile = (req, res) => {
   // WHERE users.username = ?
   // `;
   const selectQuery = `
-  SELECT users.email, userinfo.firstname, userinfo.lastname, userinfo.current_weight, userinfo.goal_weight, userinfo.dateofbirth, userinfo.height
+  SELECT users.mail, userinfo.firstname, userinfo.lastname, userinfo.current_weight, userinfo.goal_weight, userinfo.dateofbirth, userinfo.height
   FROM users
   INNER JOIN userinfo ON users.iduser = userinfo.iduser
   WHERE users.username = ?

@@ -6,17 +6,20 @@ import 'bootstrap/js/dist/dropdown';
 import '../css/SidebarMenu.css';
 import poweruplogo from "../assets/images/poweruplogo.png";
 
-// import React from "react";
-// import { useNavigate, NavLink } from "react-router-dom";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import "bootstrap-icons/font/bootstrap-icons.css";
-// import "bootstrap/js/dist/dropdown";
-// import "../css/SidebarMenu.css";
-
 const SidebarMenu = () => {
   var auth = localStorage.getItem("currentUser");
   var usernameAuth = JSON.parse(auth);
   const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("currentUser");
+    navigate("/login");
+  };
+
+  const profile = (username) => {
+    console.log(username);
+    navigate(`/profile/${username}`);
+  };
 
     // return  (
     //     <div className='container-fluid'>
@@ -70,23 +73,16 @@ const SidebarMenu = () => {
     //             </div>
     //             </div>
 
-    
-  const logout = () => {
-    localStorage.removeItem("currentUser");
-    navigate("/login");
-  };
 
-  const profile = (username) => {
-    navigate(`/profile/${username}`);
-  };
+
 
   return (
     <div className="container-fluid">
       <div className="column">
         <div className=" custom-bg-color custom-border bg-gradient col-auto col-md-2 min-vh-100 d-flex justify-content-between flex-column">
           <div>
-            <div className="">
-              <img alt="" class="img-fluid p-3" />
+            <div className=''>
+              <img alt="" class="img-fluid p-3" src={poweruplogo} />
             </div>
             <hr className="text-secondary d-none d-sm-block" />
             <ul class="nav nav-pills flex-column mt-3 mt-sm-0">
