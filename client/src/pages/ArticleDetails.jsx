@@ -11,6 +11,10 @@ const ArticleDetails = () => {
     const { id } = useParams();
     const [thisArticle, setThisArticle] = useState(null);
     const [thisArticleComments, setThisArticleComments] = useState([]);
+    const [values, setValues] = useState({
+        contentComment: null,
+    });
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         axios.get(`http://localhost:3001/articles/${id}`).then((response) => {
@@ -33,6 +37,18 @@ const ArticleDetails = () => {
     }, []);
 
     const handleAddComment = (event) => {
+        setValues(null)
+        setShow(true)
+    }
+
+    const closeAddComment = (event) => {
+        setShow(false)
+        setValues(null)
+    }
+
+    const submitAddComment = (event) => {
+        console.log(values?.contentComment);
+        closeAddComment()
     }
 
     return (
@@ -66,12 +82,36 @@ const ArticleDetails = () => {
                             )) 
                         }
                     </div>
-                    <div className='row add-button'>
-                        <button type="button" class="btn btn-success"
-                            onClick = {handleAddComment} >
-                            <i class="bi bi-chat-fill"></i>
-                        </button>
-                    </div>
+                    {
+                        show ? 
+                        (
+                            <div className='row add-button'>
+                                <div className="add-comment">
+                                    <textarea className="form-control" placeholder="Leave a comment here" id="txtarea-comment"
+                                    onChange = {e => setValues({...values, contentComment: e.target.value})}></textarea>
+                                </div>
+                                <div className="buttons">
+                                    <button type="button" class="btn btn-danger"
+                                        onClick = {closeAddComment} >
+                                        <i class="bi bi-x-circle-fill"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-success"
+                                        onClick = {submitAddComment} >
+                                        <i class="bi bi-arrow-right-circle-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        )
+                        :
+                        (
+                            <div className='row add-button-end'>
+                                <button type="button" class="btn btn-success"
+                                    onClick = {handleAddComment} >
+                                    <i class="bi bi-chat-fill"></i>
+                                </button>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         </section>

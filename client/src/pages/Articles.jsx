@@ -205,11 +205,6 @@ const Articles = () => {
                                                         style={{ height: "300px", width: "100%" }}
                                                         >
                                                     </ReactQuill>
-                                                    {/* <div className="form-floating">
-                                                        <textarea className="form-control" placeholder="Leave a comment here" id="txtarea2"
-                                                        onChange = {e => setValues({...values, content: e.target.value})}></textarea>
-                                                        <label htmlFor="floatingTextarea3">Content article</label>
-                                                    </div> */}
                                                 </div>
                                             </form>
                                         </Modal.Body>
