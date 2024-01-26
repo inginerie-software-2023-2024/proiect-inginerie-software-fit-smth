@@ -8,6 +8,9 @@ import EmailVerification from './pages/EmailVerification';
 import ForgotPassword from './pages/ForgotPassword';
 import ChangePassword from './pages/ChangePassword';
 import Profile from "./pages/UserProfile";
+// import Profile from "./pages/Profile";
+import Articles from "./pages/Articles";
+import ArticleDetails from "./pages/ArticleDetails";
 
 function App() {
   var auth = localStorage.getItem("currentUser");
@@ -24,6 +27,9 @@ function App() {
         <Route path="/changepassword" element = {<ChangePassword/> } />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path={`/profile/${usernameAuth}`} element={<Profile />} />
+        {/* <Route path="/profile" element={<Profile />} /> */}
+        <Route path="/articles" element={<Articles />} />
+        <Route path="/articles/:id" element={<ArticleDetails />} />
       </Routes>
     </>
   );

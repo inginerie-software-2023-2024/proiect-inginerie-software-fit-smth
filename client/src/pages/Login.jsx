@@ -39,10 +39,10 @@ const Login = () => {
     }
 
     return (
-        <section class="vh-100">
-        <div class="py-3 text-center">
-            <h1 class="display-3 font-weight-bold"> PowerUp</h1>
-            <h3 class="display-10 font-weight-bold">Your Journey to Strength, Harmony, and Self-Care at Home.</h3>
+        <section className="vh-100">
+        <div className="py-3 text-center">
+            <h1 className="display-3 font-weight-bold"> PowerUp</h1>
+            <h3 className="display-10 font-weight-bold">Your Journey to Strength, Harmony, and Self-Care at Home.</h3>
         </div>
         <div class="container-fluid ">
           <div class="row d-flex justify-content-center align-items-center ">
@@ -61,18 +61,18 @@ const Login = () => {
                  <div class="text-danger">
                     {error && error}
                 </div>
-                <div class="form-outline mb-4">
-                  <input type="text" id="form3Example3" class="form-control form-control-lg"
+                <div className="form-outline mb-4">
+                  <input type="text" id="form3Example3" className="form-control form-control-lg"
                     placeholder="Enter username" 
                     onChange = {e => setValues({...values, username: e.target.value})}/>
-                  <label class="form-label" for="form3Example3"></label>
+                  <label className="form-label" htmlFor="form3Example3"></label>
                 </div>
       
-                <div class="form-outline mb-3">
-                  <input type="password" id="form3Example4" class="form-control form-control-lg"
+                <div className="form-outline mb-3">
+                  <input type="password" id="form3Example4" className="form-control form-control-lg"
                     placeholder="Enter password" 
                     onChange = {e => setValues({...values, password: e.target.value})}/>
-                  <label class="form-label" for="form3Example4"></label>
+                  <label className="form-label" htmlFor="form3Example4"></label>
                 </div>
       
                 <div class="d-flex flex-column text-center text-lg-start mt-4 ">

@@ -6,15 +6,17 @@ import multer from "multer";
 import path from "path";
 import jwt from "jsonwebtoken"
 import profileRoutes from "./routes/profile.js";
+import articlesRoutes from "./routes/articles.js";
 
-const app = express();
+const app = express()
 
-app.use(cors());
-app.use(express.json());
+app.use(cors())
+app.use(express.json({limit: '50mb'}));
 app.use(cookieParser());
 
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
+app.use("/articles",articlesRoutes);
 
 app.get("/api", (req, res) => {
   res.json("from backend-side");

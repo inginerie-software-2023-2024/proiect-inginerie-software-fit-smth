@@ -11,4 +11,13 @@
 
 .custom-border {
     border: 2px solid #556970;
+    background-color: blue;
+}
+
+.main, .in-main {
+    width: max-content;
+}
+
+.content {
+    width: 300px;
 }
