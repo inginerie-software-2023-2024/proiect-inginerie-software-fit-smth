@@ -24,15 +24,18 @@
         border-radius: 0 0 20px 20px;
     }
     .text {
-        margin-top: 330px;
+        /* margin-top: 330px; */
+        margin-top: 40px;
         padding: 0 10%;
         width: 100%;
         .title {
             display: flex;
             justify-content: center;
+            margin-bottom: 40px;
         }
         .description {
             color: rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
         }
         .user-details {
             color: rgba(0, 0, 0, 0.75);
@@ -42,6 +45,7 @@
             button {
                 height: 50px;
             }
+            margin-bottom: 40px;
         }
     }
 
@@ -49,6 +53,8 @@
         width: 100%;
         border-top: 1px solid black;
         padding-top: 20px;
+        margin-top: 40px;
+        margin-bottom: 40px;
 
         .comment {
             height: max-content;
@@ -134,4 +140,8 @@
             align-items: center;
         }
     }
+}
+
+.see-more {
+    background-color: white;
 }

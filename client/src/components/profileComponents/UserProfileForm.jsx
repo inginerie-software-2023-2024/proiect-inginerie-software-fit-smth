@@ -46,7 +46,7 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
       )}
       {editMode ? (
         <>
-          <form>
+          <form className="profile">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">
                 Username:

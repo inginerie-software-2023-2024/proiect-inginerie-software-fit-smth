@@ -11,7 +11,7 @@
 
 .custom-border {
     border: 2px solid #556970;
-    background-color: blue;
+    /* background-color: blue; */
 }
 
 .main, .in-main {

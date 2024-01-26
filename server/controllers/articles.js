@@ -63,6 +63,7 @@ export const getArticleComments = (req, res) => {
 }
 
 export const addArticle = (req, res) => {
+    console.log(req);
     const query = "INSERT INTO articles (title, description, content, username, date) VALUES (?,?,?,?,?)";
     db.query(query, [req.body.title, req.body.description, req.body.content, req.body.username, req.body.date], (err, data) => {
         if(err) {

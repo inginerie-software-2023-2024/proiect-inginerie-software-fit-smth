@@ -128,7 +128,7 @@ const ArticleDetails = () => {
                     <SidebarMenu />
                 </div>
                 <div className='content-article'>
-                    <div className="cover"></div>
+                    {/* <div className="cover"></div> */}
                     <div className="text">
                         <h1 className='title'>{ thisArticle?.title }</h1>
                         <div className='user-details'>
