@@ -10,9 +10,6 @@ import logo from "../resources/logo512.png";
 import { FaUserShield } from "react-icons/fa";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineSwapRight } from "react-icons/ai";
-import {Link, useNavigate} from 'react-router-dom'
-import video from '../resources/video.mp4'
-
 
 const Register = () => {
 
