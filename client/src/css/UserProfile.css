@@ -1,0 +1,45 @@
+/* .container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-section {
+    margin-bottom: 20px;
+  }
+  
+  .profile-section label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .profile-section input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .profile-section button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .status-message {
+    margin-top: 10px;
+    font-weight: bold;
+  } */
+
+
+
+
+.userInfo {
+  margin-left: 300px;
+  padding: 20px;
+}

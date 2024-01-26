@@ -1,9 +1,12 @@
 .nav-pills li a:hover {
-    background-color: rgba(223, 230, 231, 0.555);
+    background-color: rgb(176, 176, 191);
 }
 
 .custom-bg-color{
+    left: 0;
+    position: fixed;
     background-color: #556970;
+    width: 300px;
 }
 
 .custom-border {
