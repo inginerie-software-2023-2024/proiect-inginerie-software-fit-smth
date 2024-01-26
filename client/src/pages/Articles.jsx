@@ -84,9 +84,6 @@ const Articles = () => {
             else{
                 setError(res.data.Error)
             }
-        })
-        .catch(err => console.log(err))
-        .finally(
             axios.get("http://localhost:3001/articles/getArticles").then((response) => {
                 if(response.data.Status === 'Error')
                 {
@@ -96,7 +93,19 @@ const Articles = () => {
                     setArticlesList(response.data)
                 }
             })
-        )
+        })
+        .catch(err => console.log(err))
+        // .finally(
+        //     axios.get("http://localhost:3001/articles/getArticles").then((response) => {
+        //         if(response.data.Status === 'Error')
+        //         {
+        //             setArticlesList([])
+        //         }
+        //         else {
+        //             setArticlesList(response.data)
+        //         }
+        //     })
+        // )
         setShow(false);
         initForm();
     }

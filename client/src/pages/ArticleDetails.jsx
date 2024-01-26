@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {NavLink, useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -8,11 +9,16 @@ import "../css/ArticleDetails.css";
 import { useParams } from 'react-router-dom';
 
 const ArticleDetails = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
+    const [error, setError] = useState("");
     const [thisArticle, setThisArticle] = useState(null);
     const [thisArticleComments, setThisArticleComments] = useState([]);
     const [values, setValues] = useState({
-        contentComment: null,
+        content: null,
+        username: null,
+        id_article: null,
+        date: null
     });
     const [show, setShow] = useState(false);
 
@@ -47,8 +53,46 @@ const ArticleDetails = () => {
     }
 
     const submitAddComment = (event) => {
-        console.log(values?.contentComment);
-        closeAddComment()
+        console.log(values?.content);
+        values.username = localStorage.getItem('currentUser').slice(1, -1);
+        values.id_article = thisArticle.id
+        const today = new Date();
+        const month = today.getMonth()+1;
+        const year = today.getFullYear();
+        const date = today. getDate();
+        const currentDate = month + "/" + date + "/" + year;
+        values.date = currentDate;
+        closeAddComment();
+        axios.post('http://localhost:3001/articles/addComment', values)
+        .then(res => {
+            if(res.data.Status === 'Success'){
+                navigate(`/articles/${id}`);
+            }
+            else{
+                setError(res.data.Error)
+            }
+            axios.get(`http://localhost:3001/articles/articleComments/${id}`).then((response) => {
+                if(response.data.Status == 'Error'){
+                    setThisArticleComments([])
+                }
+                else
+                    {
+                        setThisArticleComments(response.data)
+                    }
+                })
+        })
+        .catch(err => console.log(err))
+        // .finally(
+        //     axios.get(`http://localhost:3001/articles/articleComments/${id}`).then((response) => {
+        //         if(response.data.Status == 'Error'){
+        //             setThisArticleComments([])
+        //         }
+        //     else
+        //         {
+        //             setThisArticleComments(response.data)
+        //         }
+        //     })
+        // )
     }
 
     return (
@@ -88,7 +132,7 @@ const ArticleDetails = () => {
                             <div className='row add-button'>
                                 <div className="add-comment">
                                     <textarea className="form-control" placeholder="Leave a comment here" id="txtarea-comment"
-                                    onChange = {e => setValues({...values, contentComment: e.target.value})}></textarea>
+                                    onChange = {e => setValues({...values, content: e.target.value})}></textarea>
                                 </div>
                                 <div className="buttons">
                                     <button type="button" class="btn btn-danger"

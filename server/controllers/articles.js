@@ -74,3 +74,16 @@ export const addArticle = (req, res) => {
         }
     })
 }
+
+export const addArticleComment = (req, res) => {
+    const query = "INSERT INTO comments (id_article, content, username, date) VALUES (?,?,?,?)";
+    db.query(query, [req.body.id_article, req.body.content, req.body.username, req.body.date], (err, data) => {
+        if(err) {
+            return res.json(err);
+        }
+        else {
+            console.log("Comment has been created")
+            return res.status(200).json("Comment has been created");
+        }
+    })
+}
