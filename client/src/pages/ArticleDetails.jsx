@@ -24,7 +24,7 @@ const ArticleDetails = () => {
 
     useEffect(() => {
         axios.get(`http://localhost:3001/articles/${id}`).then((response) => {
-            if(response.data && response.data.length == 1){
+            if(response.data && response.data.length === 1){
                 setThisArticle(response.data[0])
             }
         });
@@ -71,7 +71,7 @@ const ArticleDetails = () => {
                 setError(res.data.Error)
             }
             axios.get(`http://localhost:3001/articles/articleComments/${id}`).then((response) => {
-                if(response.data.Status == 'Error'){
+                if(response.data.Status === 'Error'){
                     setThisArticleComments([])
                 }
                 else
@@ -108,7 +108,7 @@ const ArticleDetails = () => {
                 setError(res.data.Error)
             }
             axios.get(`http://localhost:3001/articles/articleComments/${id}`).then((response) => {
-                if(response.data.Status == 'Error'){
+                if(response.data.Status === 'Error'){
                     setThisArticleComments([])
                 }
                 else
