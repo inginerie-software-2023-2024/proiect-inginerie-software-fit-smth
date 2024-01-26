@@ -113,17 +113,17 @@ const storage = multer.diskStorage({
 // Calculators - BEGIN
 // Import the calculateBMI function if you're using it from a separate module
 app.post('/calculate-bmi', (req, res) => {
-  const { weight, height } = req.body;
+  const { weight, height, unit } = req.body;
 
-  if (!weight || !height || weight <= 0 || height <= 0) {
-    return res.status(400).json({ error: "Invalid input. Weight and height must be positive numbers." });
+  if (!weight || !height) {
+    return res.status(400).send({ error: "Weight and height are required." });
   }
-  console.log(weight, height);
+
   try {
-    const result = calculateBMI(weight, height);
-    res.json(result);
+    const bmiResult = calculateBMI(weight, height, unit);
+    res.send(bmiResult);
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    res.status(400).send({ error: error.message });
   }
 });
 

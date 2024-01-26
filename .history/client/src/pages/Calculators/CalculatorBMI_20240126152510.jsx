@@ -21,22 +21,10 @@ const BMICalculator = () => {
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-
-    // Log weight and height changes
-    if (id === 'weight') {
-      console.log(`Weight changed to: ${value} ${selectedUnit === 'imperial' ? 'lbs' : 'kg'}`);
-    } else if (id === 'height') {
-      console.log(`Height changed to: ${value} ${selectedUnit === 'imperial' ? 'inches' : 'cm'}`);
-    }
-
     setInputs((prevInputs) => ({
       ...prevInputs,
       [id]: value,
     }));
-  };
-
-  const handleUnitChange = (e) => {
-    setSelectedUnit(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -48,29 +36,10 @@ const BMICalculator = () => {
     }
 
     try {
-      let heightInMeters, weightInKg;
-
-      if (selectedUnit === 'imperial') {
-        // Convert feet and inches to meters
-        heightInMeters = (parseInt(inputs.feet) * 12 + parseInt(inputs.inches)) * 0.0254;
-        // Convert pounds to kilograms
-        weightInKg = parseInt(inputs.pounds) * 0.453592;
-      } else {
-        // Convert cm to meters
-        heightInMeters = parseInt(inputs.height) / 100;
-        // Weight is already in kg
-        weightInKg = parseInt(inputs.weight);
-      }
-
-      console.log(`BMI Calculation Data:
-      Height: ${heightInMeters} meters (${selectedUnit === 'imperial' ? `${inputs.feet} feet ${inputs.inches} inches` : `${inputs.height} cm`})
-      Weight: ${weightInKg} kg (${selectedUnit === 'imperial' ? `${inputs.pounds} lbs` : `${inputs.weight} kg`})`);
-      
       const response = await axios.post('http://localhost:3001/calculate-bmi', {
-        height: heightInMeters,
-        weight: weightInKg,
+        height: inputs.height / 100, // Convert cm to meters
+        weight: inputs.weight,
       });
-
       setResult(response.data);
       setError('');
     } catch (err) {
@@ -87,39 +56,25 @@ const BMICalculator = () => {
         <div className="col-lg-6 col-md-8">
           <h2 className="text-center">BMI Calculator</h2>
           <form onSubmit={handleSubmit} className="mt-4">
-            <div className="mb-3">
-              <label htmlFor="unit" className="form-label">
-                Select Units:
-              </label>
-              <select
-                id="unit"
-                className="form-select"
-                value={selectedUnit}
-                onChange={handleUnitChange}
-              >
-                <option value="metric">Metric (cm, kg)</option>
-                <option value="imperial">Imperial (ft, in, lbs)</option>
-              </select>
-            </div>
-            {selectedUnit === 'metric' ? (
-              <>
-                <InputField id="height" label="Height (in cm)" value={inputs.height} onChange={handleInputChange} />
-                <InputField id="weight" label="Weight (in kg)" value={inputs.weight} onChange={handleInputChange} />
-              </>
-            ) : (
-              <>
-                <InputField id="feet" label="Feet" value={inputs.feet} onChange={handleInputChange} />
-                <InputField id="inches" label="Inches" value={inputs.inches} onChange={handleInputChange} />
-                <InputField id="pounds" label="Weight (in lbs)" value={inputs.pounds} onChange={handleInputChange} />
-              </>
-            )}
+            <InputField
+              id="height"
+              label="Height (in cm)"
+              value={inputs.height}
+              onChange={handleInputChange}
+            />
+            <InputField
+              id="weight"
+              label="Weight (in kg)"
+              value={inputs.weight}
+              onChange={handleInputChange}
+            />
             <div className="text-center">
               <button type="submit" className="btn btn-primary" disabled={!isValidInput()}>
                 Calculate BMI
               </button>
             </div>
           </form>
-          <Result error={error} result={result} selectedUnit={selectedUnit} />
+          <Result error={error} result={result} />
         </div>
       </div>
     </div>

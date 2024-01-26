@@ -48,25 +48,17 @@ const BMICalculator = () => {
     }
 
     try {
-      let heightInMeters, weightInKg;
+      const heightInMeters =
+        selectedUnit === 'imperial'
+          ? (inputs.feet * 12 + inputs.inches) * 0.254 // Convert feet and inches to meters
+          : inputs.height / 100; // Use metric height if selected
 
-      if (selectedUnit === 'imperial') {
-        // Convert feet and inches to meters
-        heightInMeters = (parseInt(inputs.feet) * 12 + parseInt(inputs.inches)) * 0.0254;
-        // Convert pounds to kilograms
-        weightInKg = parseInt(inputs.pounds) * 0.453592;
-      } else {
-        // Convert cm to meters
-        heightInMeters = parseInt(inputs.height) / 100;
-        // Weight is already in kg
-        weightInKg = parseInt(inputs.weight);
-      }
-
+      const weightInKg = selectedUnit === 'imperial' ? inputs.pounds * 0.453592 : inputs.weight;
       console.log(`BMI Calculation Data:
       Height: ${heightInMeters} meters (${selectedUnit === 'imperial' ? `${inputs.feet} feet ${inputs.inches} inches` : `${inputs.height} cm`})
-      Weight: ${weightInKg} kg (${selectedUnit === 'imperial' ? `${inputs.pounds} lbs` : `${inputs.weight} kg`})`);
-      
-      const response = await axios.post('http://localhost:3001/calculate-bmi', {
+      Weight: ${weightInKg} kg (${selectedUnit === 'imperial' ? `${inputs.pounds} lbs` : `${inputs.weight} kg`})
+    `); 
+    const response = await axios.post('http://localhost:3001/calculate-bmi', {
         height: heightInMeters,
         weight: weightInKg,
       });

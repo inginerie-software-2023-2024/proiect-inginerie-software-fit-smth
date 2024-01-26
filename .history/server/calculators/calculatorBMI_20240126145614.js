@@ -1,4 +1,5 @@
 const calculateBMI = (weight, height) => {
+  console.log(weight, height);
   const bmi = weight / (height * height);
   let condition = '';
 

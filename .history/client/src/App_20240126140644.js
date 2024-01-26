@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
@@ -21,7 +20,7 @@ function App() {
             <Route path="/verify-mail" element = {<EmailVerification/>} />
             <Route path="/changepassword" element = {<ChangePassword/> } />
             <Route path="/forgotpassword" element={<ForgotPassword />} /> */}
-            <Route path="/bmi-calculator" element={<BMICalculator />} />
+            <Route path="/bmi-calculator" element={<TDEECalculator />} />
          </Routes>
     </>
   );

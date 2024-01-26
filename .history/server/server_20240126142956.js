@@ -118,7 +118,7 @@ app.post('/calculate-bmi', (req, res) => {
   if (!weight || !height || weight <= 0 || height <= 0) {
     return res.status(400).json({ error: "Invalid input. Weight and height must be positive numbers." });
   }
-  console.log(weight, height);
+
   try {
     const result = calculateBMI(weight, height);
     res.json(result);

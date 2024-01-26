@@ -61,12 +61,10 @@ const BMICalculator = () => {
         // Weight is already in kg
         weightInKg = parseInt(inputs.weight);
       }
-
       console.log(`BMI Calculation Data:
       Height: ${heightInMeters} meters (${selectedUnit === 'imperial' ? `${inputs.feet} feet ${inputs.inches} inches` : `${inputs.height} cm`})
-      Weight: ${weightInKg} kg (${selectedUnit === 'imperial' ? `${inputs.pounds} lbs` : `${inputs.weight} kg`})`);
-      
-      const response = await axios.post('http://localhost:3001/calculate-bmi', {
+      Weight: ${weightInKg} kg (${selectedUnit === 'imperial' ? `${inputs.pounds} lbs` : `${inputs.weight} kg`})
+    `); const response = await axios.post('http://localhost:3001/calculate-bmi', {
         height: heightInMeters,
         weight: weightInKg,
       });
