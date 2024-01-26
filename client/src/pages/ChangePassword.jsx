@@ -54,7 +54,7 @@ const ChangePassword = () => {
                             <div class="panel-body">
                                 <div class="container-fluid d-flex flex-column align-items-center">
                                     <div class="col-md-9 col-lg-6 col-xl-5"> <br/>
-                                        <img alt="" class="img-thumbnail" src={image}/>                        </div>
+                                        <img alt="" class="img-thumbnail" src={image}/>  </div>
                                     <div style={{/*margin-top:80px;*/}} class="col-xs-6 col-sm-6 col-md-6 login-box">
                                     <div class="text-danger fw-bold text-center justify-content-lg-start p-4">
                                     <div class="text-danger">{error && error}</div>
