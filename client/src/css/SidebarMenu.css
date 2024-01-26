@@ -1,3 +1,14 @@
 .nav-pills li a:hover {
     background-color: blue;
 }
+
+.custom-bg-color{
+    left: 0;
+    position: fixed;
+    background-color: #556970;
+    width: 300px;
+}
+
+.custom-border {
+    border: 2px solid #556970;
+}

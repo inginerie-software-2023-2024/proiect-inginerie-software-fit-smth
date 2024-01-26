@@ -50,15 +50,17 @@ const UserProfile = () => {
   return (
     <div>
       <SidebarMenu />
-      <h1>User Profile</h1>
-      {userData ? (
-        <UserProfileForm
-          userData={userData}
-          onSaveChanges={handleSaveChanges}
-        />
-      ) : (
-        <p>Loading...</p>
-      )}
+      <div className="userInfo">
+        <h1>User Profile</h1>
+        {userData ? (
+          <UserProfileForm
+            userData={userData}
+            onSaveChanges={handleSaveChanges}
+          />
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
     </div>
   );
 };

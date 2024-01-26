@@ -1,14 +1,12 @@
 import db from "../database.js";
 
 export const getProfile = (req, res) => {
-  console.log("ALo");
   const username = req.params.username; // Use req.params.username to get the value from the URL
-  console.log(username);
   console.log("Received request for user profile with username:", username);
 
   const query = `
     SELECT users.email, userinfo.firstname, userinfo.lastname, userinfo.current_weight, userinfo.goal_weight, userinfo.dateofbirth, userinfo.height
-    FROM users
+    FROM users  
     INNER JOIN userinfo ON users.iduser = userinfo.iduser
     WHERE users.username = ?
   `;

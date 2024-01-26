@@ -1,4 +1,4 @@
-.container {
+/* .container {
     max-width: 600px;
     margin: 0 auto;
   }
@@ -34,4 +34,12 @@
   .status-message {
     margin-top: 10px;
     font-weight: bold;
-  }
+  } */
+
+
+
+
+.userInfo {
+  margin-left: 300px;
+  padding: 20px;
+}
