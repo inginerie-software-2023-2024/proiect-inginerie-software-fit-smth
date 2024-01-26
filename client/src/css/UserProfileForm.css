@@ -1,0 +1,27 @@
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .form-section {
+    margin-bottom: 20px;
+  }
+  
+  .form-section label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-section input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .form-section button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
