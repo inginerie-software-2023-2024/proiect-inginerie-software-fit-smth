@@ -24,6 +24,7 @@
         }
 
         .article-card {
+            position: relative;
             .image {height: 200px;
                 background-image: url("../resources/sport.jpeg");
                 background-repeat: no-repeat;
@@ -32,12 +33,17 @@
                 background-position-y: center;
             }
             .text {
+                height: 100px;
+                overflow: hidden;
                 padding: 10px;
+                p {
+                    margin: 0;
+                }
             }
             .see-more {
-                display: flex;
-                justify-content: flex-end;
-                margin: 0;
+                position: absolute;
+                right: 10px;
+                bottom: 10px;
             }
         }
     }
@@ -59,4 +65,31 @@
             align-items: center;
         }
     }
+}
+
+.modal-dialog {
+    height: 100vh;
+    min-width: calc(100vw - 300px) !important;
+    margin: 0;
+    margin-left: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    height: 80%;
+    width: 80%;
+}
+
+.modal-body {
+    overflow-y: scroll;
+}
+
+#txtarea1 {
+    min-height: 100px; 
+}
+
+#txtarea2 {
+    min-height: 300px; 
 }

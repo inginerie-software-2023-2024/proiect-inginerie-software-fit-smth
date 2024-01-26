@@ -2,29 +2,25 @@ import db from "../database.js";
 
 export const getAllArticles = (req, res) => {
     let search = null;
-    console.log(req.query);
     if(req.query){
         if(req.query.searchKey)
             search = req.query.searchKey
     }
     if(search){
-        const query = "SELECT * from articles where title LIKE ? OR content LIKE ?"
+        const query = "SELECT * from articles where title LIKE ? OR content LIKE ? ORDER BY date DESC"
         search = '%' + search + '%'
-
         db.query(query, [search, search], (err, data) => {
             if(err) {
-                console.log(err);
                 return res.json(err)
             }
             if(data.length == 0) {
-                console.log(data);
                 return res.json({Status: "Error",  Error: "No article in database!"});
             }
             else return res.json(data)
         })
     }
     else {
-        const query = "SELECT * from articles"
+        const query = "SELECT * from articles ORDER BY date DESC"
         
         db.query(query, (err, data) => {
             if(err) {
@@ -63,5 +59,18 @@ export const getArticleComments = (req, res) => {
             return res.json({Status: "Error",  Error: "No comments for this article!"});
          }
          else return res.json(data)
+    })
+}
+
+export const addArticle = (req, res) => {
+    const query = "INSERT INTO articles (title, description, content, username, date) VALUES (?,?,?,?,?)";
+    db.query(query, [req.body.title, req.body.description, req.body.content, req.body.username, req.body.date], (err, data) => {
+        if(err) {
+            return res.json(err);
+        }
+        else {
+            console.log("Article has been created")
+            return res.status(200).json("Article has been created");
+        }
     })
 }

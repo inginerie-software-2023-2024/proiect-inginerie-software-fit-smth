@@ -30,6 +30,12 @@
             display: flex;
             justify-content: center;
         }
+        .description {
+            color: rgba(0, 0, 0, 0.5);
+        }
+        .user-details {
+            color: rgba(0, 0, 0, 0.75);
+        }
     }
 
     .comments {

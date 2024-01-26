@@ -45,14 +45,14 @@ const ArticleDetails = () => {
                     <div className="cover"></div>
                     <div className="text">
                         <h1 className='title'>{ thisArticle?.title }</h1>
-                        <div className='description'>
-                            <p>{ thisArticle?.description }</p>
-                        </div>
                         <div className='user-details'>
                             <h4>{ thisArticle?.username }</h4>
                             <h4>{ thisArticle?.date }</h4>
                         </div>
-                        <p>{ thisArticle?.content }</p>
+                        <div className='description'>
+                            <p>{ thisArticle?.description }</p>
+                        </div>
+                        <div dangerouslySetInnerHTML={{__html: thisArticle?.content}}></div>
                     </div>
                     <div className="comments">
                         <h5>Comentarii</h5>
