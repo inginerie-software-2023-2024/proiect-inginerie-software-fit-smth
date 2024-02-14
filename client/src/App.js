@@ -14,6 +14,7 @@ import ArticleDetails from "./pages/ArticleDetails";
 import BMICalculator from './pages/Calculators/CalculatorBMI';
 import TDEECalculator from './pages/Calculators/CalculatorTDEE';
 import BMRCalculator from './pages/Calculators/CalculatorBMR';
+import CaloriesCalculator from "./pages/Calculators/CalculatorCalories";
 
 function App() {
   var auth = localStorage.getItem("currentUser");
@@ -34,6 +35,7 @@ function App() {
         <Route path="/bmi-calculator" element={<BMICalculator />} />
         <Route path="/bmr-calculator" element={<BMRCalculator />} />
         <Route path="/tdee-calculator" element={<TDEECalculator />} />
+        <Route path="/calories-calculator" element={<CaloriesCalculator />} />
       </Routes>
     </>)
 }

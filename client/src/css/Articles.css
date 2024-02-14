@@ -25,7 +25,8 @@
 
         .article-card {
             position: relative;
-            .image {height: 200px;
+            .image {
+                height: 200px;
                 background-image: url("../resources/sport.jpeg");
                 background-repeat: no-repeat;
                 background-size: cover;

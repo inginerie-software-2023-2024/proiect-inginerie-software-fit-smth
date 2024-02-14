@@ -7,6 +7,7 @@ import path from "path";
 import jwt from "jsonwebtoken"
 import profileRoutes from "./routes/profile.js";
 import articlesRoutes from "./routes/articles.js";
+import foodRoutes from "./routes/food.js";
 import calculateTDEE from "./calculators/calculatorTDEE.js"
 import calculateBMI from './calculators/calculatorBMI.js';
 import calculateBMR from './calculators/calculatorBMR.js';
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
 app.use("/articles",articlesRoutes);
+app.use("/food", foodRoutes);
 
 app.get("/api", (req, res) => {
   res.json("from backend-side");
