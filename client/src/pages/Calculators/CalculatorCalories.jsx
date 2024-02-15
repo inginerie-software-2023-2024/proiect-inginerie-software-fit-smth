@@ -66,7 +66,7 @@ const CaloriesCalculator = () => {
         const month = today.getMonth()+1;
         const year = today.getFullYear();
         const date = today. getDate();
-        const currentDate = month + "/" + date + "/" + year;
+        const currentDate = date + "/" + month + "/" + year;
         const val = {
             username: localStorage.getItem('currentUser').slice(1, -1),
             date : currentDate,

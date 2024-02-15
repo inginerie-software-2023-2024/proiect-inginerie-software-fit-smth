@@ -12,19 +12,66 @@ import "../css/UserProfile.css";
 const UserProfile = () => {
   const username = getCurrentUser();
   const [userData, setUserData] = useState(null);
+  const [userMeals, setUserMeals] = useState([])
 
   useEffect(() => {
     fetchUserData(username, setUserData);
+    getUserMealsData(username)
   }, [username]);
 
   const handleSaveChanges = async (updatedData) => {
     await updateUserData(username, updatedData, setUserData);
   };
 
+  async function getUserMealsData(username) {
+    const res = await axios.get(`http://localhost:3001/food/getUserMeals/${username}`).then((response) => {
+      if(response.data.Status === 'Error')
+      {
+        setUserMeals([])
+      }
+      else {
+        console.log(response.data);
+        setUserMeals(response.data)
+      }
+    })
+  }
+
   return (
     <div>
       <SidebarMenu />
       <UserProfileContent userData={userData} onSaveChanges={handleSaveChanges} />
+      <h1 className="title-hmu">User meals history</h1>
+      <div className="meals-history">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Calories</th>
+              <th scope="col">Carbs</th>
+              <th scope="col">Fat</th>
+              <th scope="col">Protein</th>
+              <th scope="col">Grams</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              userMeals.map(meal => (
+                <tr key={meal.id}>
+                  <td><strong>{meal.name}</strong></td>
+                  <td>{meal.calories}</td>
+                  <td>{meal.carbs}</td>
+                  <td>{meal.fat}</td>
+                  <td>{meal.protein}</td>
+                  <td>{meal.grame}</td>
+                  <td>{meal.date}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        
+      </div>
     </div>
   );
 };
@@ -40,6 +87,7 @@ function getCurrentUser() {
   const auth = localStorage.getItem("currentUser");
   return JSON.parse(auth);
 }
+
 
 /**
  * Fetches user data from the server.
@@ -96,7 +144,9 @@ const UserProfileContent = ({ userData, onSaveChanges }) => (
   <div className="userInfo">
     <h1>User Profile</h1>
     {userData ? (
-      <UserProfileForm userData={userData} onSaveChanges={onSaveChanges} />
+      <>
+        <UserProfileForm userData={userData} onSaveChanges={onSaveChanges} />
+      </>
     ) : (
       <p>Loading...</p>
     )}

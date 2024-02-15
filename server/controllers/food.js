@@ -53,3 +53,17 @@ export const addUserMeal = (req, res) => {
     }
     return res.json({ Status: "Success" });
 }
+
+export const getUserMeals = (req, res) => {
+    const username = req.params.username
+    const query = "SELECT um.*, a.* from user_meals um, alimente a where um.username = ? and a.id = um.idalimente ORDER BY um.date DESC"
+    db.query(query, [username], (err, data) => {
+        if (err) {
+            return res.json(err)
+        }
+        if (data.length == 0) {
+            return res.json({ Status: "Error", Error: "No meals in database!" });
+        }
+        else return res.json(data)
+    })
+}
