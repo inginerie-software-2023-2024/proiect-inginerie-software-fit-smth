@@ -32,3 +32,24 @@ export const getFood = (req, res) => {
         })
     }
 }
+
+export const addUserMeal = (req, res) => {
+    const username = req.body.username
+    const date = req.body.date
+    for(let food of req.body.food) {
+        try {
+            const query = "INSERT INTO user_meals (username, date, idalimente, grame) VALUES (?,?,?,?)";
+            db.query(query, [username, date, food.id, food.q], (err, data) => {
+                if (err) {
+                    console.log("Meal error")
+                }
+                else {
+                    console.log("Meal has been created")
+                }
+            })
+        }catch(err) {
+            return res.json(err);
+        }
+    }
+    return res.json({ Status: "Success" });
+}

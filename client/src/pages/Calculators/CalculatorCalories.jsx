@@ -62,7 +62,27 @@ const CaloriesCalculator = () => {
     }
 
     const saveResult = () => {
-        console.log(result);
+        const today = new Date();
+        const month = today.getMonth()+1;
+        const year = today.getFullYear();
+        const date = today. getDate();
+        const currentDate = month + "/" + date + "/" + year;
+        const val = {
+            username: localStorage.getItem('currentUser').slice(1, -1),
+            date : currentDate,
+            food: [...userList]
+        }
+        axios.post('http://localhost:3001/food/addMeal', val).then((response) => {
+            if(response.data.Status === 'Error')
+            {
+                console.log('error');
+            }
+            else {
+                console.log('success');
+                setUserList([])
+                setResult(null)
+            }
+        });
     }
 
     return (
