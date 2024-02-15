@@ -8,6 +8,7 @@ const CaloriesCalculator = () => {
     const [foodList, setFoodList] = useState([])
     const [userList, setUserList] = useState([])
     const [search, setSearch] = useState('')
+    const [result, setResult] = useState(null)
 
     useEffect(() => {
         axios.get("http://localhost:3001/food").then((response) => {
@@ -37,6 +38,31 @@ const CaloriesCalculator = () => {
         if(userList.map(i => i.id).indexOf(value.id) === -1){
             setUserList([...userList, {...value, q: 100}])
         }
+    }
+
+    function handleDeleteFood(value) {
+        setUserList(userList.filter(i => i.id !== value.id))
+    }
+
+    const handleCalculate = () => {
+        let quantity = 0;
+        let calories = 0;
+        let carbs = 0;
+        let fat = 0;
+        let protein = 0;
+
+        for(let i of userList) {
+            quantity += +i.q
+            calories += +i.calories
+            carbs += +i.carbs
+            fat += +i.fat
+            protein += +i.protein
+        }
+        setResult({q: quantity, cal: calories, carbs: carbs, fat: fat, protein: protein})
+    }
+
+    const saveResult = () => {
+        console.log(result);
     }
 
     return (
@@ -86,7 +112,7 @@ const CaloriesCalculator = () => {
                                                     <div className="form-group">
                                                         <input type="number"  className="form-control" value={food.q} onChange = {(e) => {food.q = e.target.value; setUserList([...userList])}}/>
                                                     </div>
-                                                    <div className="dlt-btn">
+                                                    <div className="dlt-btn" onClick={() => handleDeleteFood(food)}>
                                                         <i class="bi bi-trash-fill"></i>
                                                     </div>
                                                 </div>
@@ -100,10 +126,29 @@ const CaloriesCalculator = () => {
                         </div>
                     </div>
                     <div className="row final-result">
-                        <div className="btn">
+                        <div className="btn" onClick={handleCalculate}>
                             <button className='btn btn-success'>Calculeaza</button>
                         </div>
-                        <p>raspunsul final</p>
+                        {
+                            result ? 
+                            (
+                                <div className='result'>
+                                    <strong>The result:</strong>
+                                    <p>You ate <strong>{result.q} grams</strong> today, which means: </p>
+                                    <ul>
+                                        <li><strong>{result.cal} calories</strong></li>
+                                        <li><strong>{result.carbs} carbs</strong></li>
+                                        <li><strong>{result.fat} fat</strong></li>
+                                        <li><strong>{result.protein} protein</strong></li>
+                                    </ul>
+                                    <div className="save-btn" onClick={saveResult}>
+                                        <button className='btn btn-warning'>Save result</button>
+                                    </div>
+                                </div>
+                            ) 
+                            :
+                            <span></span>
+                        }
                     </div>
                 </div>
                 
