@@ -1,23 +1,49 @@
-name: Node.js CI
+name: Full Stack CI
 
 on:
   push:
-    branches: [ "cc-food" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
-  build:
-    runs-on: windows-latest
+  client-tests:
+    runs-on: ubuntu-latest
+
     steps:
-    - name: Configure Git to handle long paths
-      run: git config --system core.longpaths true
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+    - uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+        node-version: '16'
+
+    - name: Install client dependencies
+      run: npm ci
+      working-directory: ./client
+
+    - name: Run client tests
+      run: npm test
+      working-directory: ./client
+      env:
+        CI: true
+
+  server-setup:
+    needs: client-tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install server dependencies
+      run: npm ci
+      working-directory: ./server
+
+    - name: Build server or run server-specific scripts
+      run: npm run build --if-present
+      working-directory: ./server
