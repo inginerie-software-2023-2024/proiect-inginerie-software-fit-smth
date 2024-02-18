@@ -1,0 +1,38 @@
+name: Dependency Installation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  install-client-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2 
+      - name: Set up Node.js (client) 
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16' # Example: Node 16 for client
+          cache: 'npm' 
+
+      - name: Install client dependencies
+        run: npm ci
+        working-directory: ./client
+
+  install-server-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js (server)
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20' # Example: Node 20 for server
+          cache: 'npm'  
+
+      - name: Install server dependencies
+        run: npm ci
+        working-directory: ./server
