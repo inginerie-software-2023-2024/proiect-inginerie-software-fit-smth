@@ -45,6 +45,7 @@ function BMRCalculator() {
         }
     }
     return (
+        {error && <div data-testid="error-message" className="alert alert-danger">{error}</div>}
 
         <div className="row fix">
             <div className='sidebar'>
@@ -55,8 +56,6 @@ function BMRCalculator() {
 
                 {/* BMR Information Section with Formulas */}
                 <div className="mb-4">
-                    {error && <div data-testid="error-message" className="alert alert-danger">{error}</div>}
-
                     <p>Basal Metabolic Rate (BMR) is an estimate of how many calories your body needs to function at rest. It represents the minimum amount of energy required to keep your body functioning, including breathing and keeping your heart beating.</p>
                     <p>We use the following formulas to calculate BMR:</p>
                     <ul>

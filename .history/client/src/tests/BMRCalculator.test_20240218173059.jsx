@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import BMRCalculator from '../pages/Calculators/CalculatorBMR';
-import calculateBMR from '../../../server/calculators/calculatorBMR';
 import axios from 'axios';
 
 jest.mock('axios');
@@ -67,42 +66,6 @@ describe('BMRCalculator Component', () => {
             const errorMessage = screen.getByTestId('error-message');
             expect(errorMessage).toBeInTheDocument();
         });
-    });
-
-});
-
-describe('calculateBMR Function', () => {
-    // Unit test for Mifflin-St Jeor Equation for males
-    test('correctly calculates BMR using Mifflin-St Jeor for males', () => {
-        const result = calculateBMR(25, 'male', 70, 175);
-        expect(result.mifflinStJeor).toBeCloseTo(10 * 70 + 6.25 * 175 - 5 * 25 + 5);
-    });
-
-    // Unit test for Mifflin-St Jeor Equation for females
-    test('correctly calculates BMR using Mifflin-St Jeor for females', () => {
-        const result = calculateBMR(25, 'female', 70, 175);
-        expect(result.mifflinStJeor).toBeCloseTo(10 * 70 + 6.25 * 175 - 5 * 25 - 161);
-    });
-
-    // Unit test for Harris-Benedict Equation for males
-    test('correctly calculates BMR using Harris-Benedict for males', () => {
-        const result = calculateBMR(30, 'male', 80, 180);
-        expect(result.harrisBenedict).toBeCloseTo(88.362 + (13.397 * 80) + (4.799 * 180) - (5.677 * 30));
-    });
-
-    // Unit test for Harris-Benedict Equation for females
-    test('correctly calculates BMR using Harris-Benedict for females', () => {
-        const result = calculateBMR(30, 'female', 80, 180);
-        expect(result.harrisBenedict).toBeCloseTo(447.593 + (9.247 * 80) + (3.098 * 180) - (4.330 * 30));
-    });
-
-    // Unit test for Katch-McArdle Formula with body fat percentage
-    test('correctly calculates BMR using Katch-McArdle with body fat', () => {
-        const bodyFat = 20; // 20% body fat
-        const weight = 80; // 80kg
-        const leanMass = weight * (1 - bodyFat / 100);
-        const result = calculateBMR(25, 'male', weight, 180, bodyFat);
-        expect(result.katchMcArdle).toBeCloseTo(370 + (21.6 * leanMass));
     });
 
 });

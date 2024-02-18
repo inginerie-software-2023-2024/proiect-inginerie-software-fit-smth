@@ -71,6 +71,9 @@ describe('BMRCalculator Component', () => {
 
 });
 
+
+import calculateBMR from '../path/to/calculateBMR';
+
 describe('calculateBMR Function', () => {
     // Unit test for Mifflin-St Jeor Equation for males
     test('correctly calculates BMR using Mifflin-St Jeor for males', () => {

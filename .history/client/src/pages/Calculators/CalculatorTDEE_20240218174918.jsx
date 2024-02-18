@@ -58,21 +58,20 @@ const TDEECalculator = () => {
     const renderTextInput = (label, name) => (
         <div className="form-group">
             <label>{label}: </label>
-            <input type="number" name={name} className="form-control form-control-wide" value={formData[name]} onChange={handleChange} />
+            <input type="number" name={name} className="form-control" value={formData[name]} onChange={handleChange} />
         </div>
     );
 
     const renderSelectInput = (label, name, options) => (
         <div className="form-group">
             <label>{label}: </label>
-            <select name={name} className="form-control form-control-wide" value={formData[name]} onChange={handleChange}>
+            <select name={name} className="form-control" value={formData[name]} onChange={handleChange}>
                 {options.map(option => (
                     <option key={option} value={option}>{name === 'activity' ? ACTIVITY_LEVELS[option] : option}</option>
                 ))}
             </select>
         </div>
     );
-
 
     return (
         <div className="row fix">

@@ -54,9 +54,3 @@
 .inputs-bmr {
   width: 50%;
 }
-
-/* BMICalculator.css */
-.form-control-wide {
-  width: 300%; 
-  max-width: 500px;
-}

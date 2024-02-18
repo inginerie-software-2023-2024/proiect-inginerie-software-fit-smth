@@ -64,6 +64,7 @@ const UserMenu = ({ userObject, onLogout }) => {
 
   return (
     <div className="bg-light d-flex justify-content-between flex-column dropdown open">
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <a
         className="text-decoration-none text-dark dropdown-toggle p-3"
         id="triggerId"

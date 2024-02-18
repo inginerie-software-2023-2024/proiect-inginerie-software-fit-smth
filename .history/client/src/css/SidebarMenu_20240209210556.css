@@ -2,7 +2,7 @@
     background-color: rgb(176, 176, 191);
 }
 
-.custom-bg-color {
+.custom-bg-color{
     left: 0;
     position: fixed;
     background-color: #556970;
@@ -14,15 +14,10 @@
     /* background-color: blue; */
 }
 
-.main,
-.in-main {
+.main, .in-main {
     width: max-content;
 }
 
 .content {
     width: 300px;
-}
-
-.navLinkActive {
-    background-color: gray;
 }

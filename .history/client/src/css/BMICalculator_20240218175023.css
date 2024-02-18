@@ -57,6 +57,6 @@
 
 /* BMICalculator.css */
 .form-control-wide {
-  width: 300%; 
-  max-width: 500px;
+  width: 100%; /* Or any specific width you prefer */
+  max-width: 500px; /* Optional: to prevent it from becoming too wide on large screens */
 }

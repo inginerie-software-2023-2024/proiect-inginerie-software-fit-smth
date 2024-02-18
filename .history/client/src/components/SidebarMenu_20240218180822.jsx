@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -56,7 +54,7 @@ export default SidebarMenu;
 
 const UserMenu = ({ userObject, onLogout }) => {
   const navigate = useNavigate();
-  const username = userObject;
+  const username = userObject ? userObject.username : 'User'; // Ensure you extract username correctly
 
   const handleProfileClick = () => {
     navigate(`/profile/${username}`);
@@ -64,18 +62,20 @@ const UserMenu = ({ userObject, onLogout }) => {
 
   return (
     <div className="bg-light d-flex justify-content-between flex-column dropdown open">
-      <a
-        className="text-decoration-none text-dark dropdown-toggle p-3"
-        id="triggerId"
-        data-bs-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false">
+      <button 
+        className="btn text-decoration-none text-dark dropdown-toggle p-3" 
+        id="triggerId" 
+        data-bs-toggle="dropdown" 
+        aria-haspopup="true" 
+        aria-expanded="false"
+        style={{ background: "transparent", border: "none", boxShadow: "none" }} // Style as needed to resemble an anchor link
+      >
         <i className="bi bi-person-circle"></i>
         <span className="ms-2 d-none d-sm-inline">{username}</span>
-      </a>
+      </button>
       <div className="dropdown-menu" aria-labelledby="triggerId">
         <button onClick={handleProfileClick} className="dropdown-item">Profile</button>
-        <button onClick={handleProfileClick} className="dropdown-item">Settings</button> {/* Adjust if Settings should navigate elsewhere */}
+        <button onClick={handleProfileClick} className="dropdown-item">Settings</button>
         <button onClick={onLogout} className="dropdown-item">Log out</button>
       </div>
     </div>

@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,8 +16,10 @@ const navigationItems = [
 
 const SidebarMenu = () => {
   const navigate = useNavigate();
+
   const userObject = JSON.parse(localStorage.getItem("currentUser"));
-  console.log(userObject);
+  const usernameAuth = userObject ? userObject.username : 'User';
+
   const logout = () => {
     localStorage.removeItem("currentUser");
     navigate("/login");
@@ -45,7 +45,23 @@ const SidebarMenu = () => {
               {navigationItems.map(renderNavItem)}
             </ul>
           </div>
-          <UserMenu userObject={userObject} onLogout={logout} />
+          <div className="bg-light d-flex justify-content-between flex-column dropdown open">
+            <a className="text-decoration-none text-dark dropdown-toggle p-3" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i className="bi bi-person-circle"></i>
+              <span className="ms-2 d-none d-sm-inline">{usernameAuth}</span>
+            </a>
+            <div className="dropdown-menu" aria-labelledby="triggerId">
+              <button onClick={() => navigate(`/profile/${usernameAuth}`)} className="dropdown-item">
+                Profile
+              </button>
+              <button onClick={() => navigate(`/settings/${usernameAuth}`)} className="dropdown-item">
+                Settings
+              </button>
+              <button onClick={logout} className="dropdown-item">
+                Log out
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -53,31 +69,3 @@ const SidebarMenu = () => {
 };
 
 export default SidebarMenu;
-
-const UserMenu = ({ userObject, onLogout }) => {
-  const navigate = useNavigate();
-  const username = userObject;
-
-  const handleProfileClick = () => {
-    navigate(`/profile/${username}`);
-  };
-
-  return (
-    <div className="bg-light d-flex justify-content-between flex-column dropdown open">
-      <a
-        className="text-decoration-none text-dark dropdown-toggle p-3"
-        id="triggerId"
-        data-bs-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false">
-        <i className="bi bi-person-circle"></i>
-        <span className="ms-2 d-none d-sm-inline">{username}</span>
-      </a>
-      <div className="dropdown-menu" aria-labelledby="triggerId">
-        <button onClick={handleProfileClick} className="dropdown-item">Profile</button>
-        <button onClick={handleProfileClick} className="dropdown-item">Settings</button> {/* Adjust if Settings should navigate elsewhere */}
-        <button onClick={onLogout} className="dropdown-item">Log out</button>
-      </div>
-    </div>
-  );
-};

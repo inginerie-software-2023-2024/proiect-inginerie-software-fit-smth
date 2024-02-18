@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -58,24 +56,32 @@ const UserMenu = ({ userObject, onLogout }) => {
   const navigate = useNavigate();
   const username = userObject;
 
-  const handleProfileClick = () => {
-    navigate(`/profile/${username}`);
+  const handleProfileClick = (path) => {
+    navigate(path);
+  };
+
+  // Prevent default action to avoid navigating to "#" which scrolls the page to the top
+  const preventDefault = (e) => {
+    e.preventDefault();
   };
 
   return (
     <div className="bg-light d-flex justify-content-between flex-column dropdown open">
       <a
+        href="#"
         className="text-decoration-none text-dark dropdown-toggle p-3"
         id="triggerId"
         data-bs-toggle="dropdown"
         aria-haspopup="true"
-        aria-expanded="false">
+        aria-expanded="false"
+        onClick={preventDefault} // Add this to prevent default action
+      >
         <i className="bi bi-person-circle"></i>
         <span className="ms-2 d-none d-sm-inline">{username}</span>
       </a>
       <div className="dropdown-menu" aria-labelledby="triggerId">
-        <button onClick={handleProfileClick} className="dropdown-item">Profile</button>
-        <button onClick={handleProfileClick} className="dropdown-item">Settings</button> {/* Adjust if Settings should navigate elsewhere */}
+        <button onClick={() => handleProfileClick(`/profile/${username}`)} className="dropdown-item">Profile</button>
+        <button onClick={() => handleProfileClick(`/settings/${username}`)} className="dropdown-item">Settings</button>
         <button onClick={onLogout} className="dropdown-item">Log out</button>
       </div>
     </div>

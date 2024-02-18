@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,7 +17,7 @@ const navigationItems = [
 const SidebarMenu = () => {
   const navigate = useNavigate();
   const userObject = JSON.parse(localStorage.getItem("currentUser"));
-  console.log(userObject);
+
   const logout = () => {
     localStorage.removeItem("currentUser");
     navigate("/login");
@@ -54,9 +52,11 @@ const SidebarMenu = () => {
 
 export default SidebarMenu;
 
+
+
 const UserMenu = ({ userObject, onLogout }) => {
   const navigate = useNavigate();
-  const username = userObject;
+  const username = userObject ? userObject.username : 'User';
 
   const handleProfileClick = () => {
     navigate(`/profile/${username}`);
@@ -64,12 +64,7 @@ const UserMenu = ({ userObject, onLogout }) => {
 
   return (
     <div className="bg-light d-flex justify-content-between flex-column dropdown open">
-      <a
-        className="text-decoration-none text-dark dropdown-toggle p-3"
-        id="triggerId"
-        data-bs-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false">
+      <a className="text-decoration-none text-dark dropdown-toggle p-3" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i className="bi bi-person-circle"></i>
         <span className="ms-2 d-none d-sm-inline">{username}</span>
       </a>
