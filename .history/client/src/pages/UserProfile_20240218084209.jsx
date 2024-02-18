@@ -49,10 +49,9 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => (
       selected={selectedDate}
       onChange={(date) => setSelectedDate(date)}
       dateFormat="dd-MM-yyyy"
-      className="form-control centered-datepicker"
+      className="form-control"
       onKeyDown={(e) => e.preventDefault()}
     />
-
   </div>
 );
 

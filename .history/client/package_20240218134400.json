@@ -52,10 +52,5 @@
     "@testing-library/react": "^14.2.1",
     "eslint": "^8.56.0",
     "jest": "^29.7.0"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "^axios$": "axios/dist/node/axios.cjs"
-    }
   }
 }

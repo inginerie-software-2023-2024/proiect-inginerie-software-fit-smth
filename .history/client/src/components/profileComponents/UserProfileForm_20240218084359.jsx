@@ -95,6 +95,7 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
   };
 
   const renderCalculatedData = () => {
+    // Helper function to format number values
     const formatNumber = (value) => {
       return typeof value === 'number' ? value.toFixed(2) : value;
     };
@@ -148,68 +149,6 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
   };
 
 
-  const UserProfileView = React.memo(({ userData }) => {
-    const genderLabel = genderOptions.find(option => option.value === userData.gender)?.label || "Not Provided";
-    
-    console.log("Actual activityLevel from userData:", userData.activityLevel);
-    activityLevelOptions.forEach(option => console.log(option.value));
-
-    const activityLevelLabel = activityLevelOptions.find(option => option.value === userData.activityLevel)?.label || "Not Provided";
-
-    return (
-      <div className="table-responsive">
-        <table className="table table-bordered">
-          <tbody>
-            <tr>
-              <th scope="row">Username</th>
-              <td>{userData.username}</td>
-            </tr>
-            <tr>
-              <th scope="row">Email</th>
-              <td>{userData.email}</td>
-            </tr>
-            <tr>
-              <th scope="row">First Name</th>
-              <td>{userData.firstname}</td>
-            </tr>
-            <tr>
-              <th scope="row">Last Name</th>
-              <td>{userData.lastname}</td>
-            </tr>
-            <tr>
-              <th scope="row">Gender</th>
-              <td>{genderLabel}</td>
-            </tr>
-            <tr>
-              <th scope="row">Current Weight (kg)</th>
-              <td>{userData.current_weight}</td>
-            </tr>
-            <tr>
-              <th scope="row">Goal Weight (kg)</th>
-              <td>{userData.goal_weight}</td>
-            </tr>
-            <tr>
-              <th scope="row">Date of Birth</th>
-              <td>{userData.dateofbirth}</td>
-            </tr>
-            <tr>
-              <th scope="row">Height (cm)</th>
-              <td>{userData.height}</td>
-            </tr>
-            <tr>
-              <th scope="row">Body Fat (%)</th>
-              <td>{userData.bodyFat}</td>
-            </tr>
-            <tr>
-              <th scope="row">Activity Level</th>
-              <td>{activityLevelLabel}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
-  });
-
 
   return (
     <div className="container py-2">
@@ -217,7 +156,12 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
         <div className="col-lg-5"> {/* Adjust the column size as needed */}
           <div className="card">
             <div className="card-body">
+              <button onClick={handleToggleMode} className={`btn ${editMode ? "btn-danger" : "btn-primary"}`}>
+                {editMode ? "Cancel" : "Edit Profile"}
+              </button>
+
               <StatusMessage status={status} />
+
               {editMode ? (
                 <UserProfileEditForm
                   editedData={editedData}
@@ -228,10 +172,6 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
               ) : (
                 <UserProfileView userData={userData} />
               )}
-
-              <button onClick={handleToggleMode} className={`btn ${editMode ? "btn-danger" : "btn-primary"}`}>
-                {editMode ? "Cancel" : "Edit Profile"}
-              </button>
             </div>
           </div>
         </div>
@@ -239,7 +179,6 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
         <div className="col-lg-5">
           <div className="card">
             <div className="card-body">
-              <h5 className="card-title">Health & Fitness Metrics</h5> {/* Title added here */}
               <div className="calculated-data">
                 {renderCalculatedData()}
               </div>
@@ -270,6 +209,20 @@ const renderParagraph = (label, value) => {
   );
 };
 
+const UserProfileView = React.memo(({ userData }) => (
+  <div className="user-data mt-3">
+    {renderParagraph("Username", userData.username)}
+    {renderParagraph("Email", userData.email)}
+    {renderParagraph("First Name", userData.firstname)}
+    {renderParagraph("Last Name", userData.lastname)}
+    {renderParagraph("Gender", userData.gender)}
+    {renderParagraph("Current Weight (kg)", userData.current_weight)}
+    {renderParagraph("Body Fat (%)", userData.bodyFat)}
+    {renderParagraph("Goal Weight (kg)", userData.goal_weight)}
+    {renderParagraph("Date of Birth", userData.dateofbirth)}
+    {renderParagraph("Height (cm)", userData.height)}
+    {renderParagraph("Activity level", userData.activitylevel)}
+  </div>));
 
 
 const UserProfileEditForm = React.memo(({ editedData, handleChange, renderInputFields, handleSaveChanges }) => {

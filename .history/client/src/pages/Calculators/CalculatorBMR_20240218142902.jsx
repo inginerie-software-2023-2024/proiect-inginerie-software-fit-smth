@@ -79,7 +79,7 @@ function BMRCalculator() {
                 </div>
 
                 <div className="inputs-bmr">
-
+                    
                     <InputField label="Age" name="age" value={formData.age} onChange={handleChange} />
                     <SelectField label="Gender" name="gender" value={formData.gender} options={["male", "female"]} onChange={handleChange} />
                     <InputField label="Weight (kg)" name="weight" value={formData.weight} onChange={handleChange} />
@@ -125,22 +125,12 @@ function SelectField({ label, name, value, options, onChange }) {
     return (
         <div className="mb-3">
             <label htmlFor={name} className="form-label">{label}</label>
-            <select
-                className="form-select"
-                id={name}
-                name={name}
-                value={value}
-                onChange={onChange}
-                data-testid={`${name}-select`} // Add data-testid attribute
-            >
-                {options.map(option => (
-                    <option key={option} value={option}>
-                        {option.charAt(0).toUpperCase() + option.slice(1)}
-                    </option>
-                ))}
+            <select className="form-select" id={name} name={name} value={value} onChange={onChange}>
+                {options.map(option => <option key={option} value={option}>{option.charAt(0).toUpperCase() + option.slice(1)}</option>)}
             </select>
         </div>
     );
 }
+
 
 export default BMRCalculator;

@@ -150,8 +150,7 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
 
   const UserProfileView = React.memo(({ userData }) => {
     const genderLabel = genderOptions.find(option => option.value === userData.gender)?.label || "Not Provided";
-    
-    console.log("Actual activityLevel from userData:", userData.activityLevel);
+    console.log("Actual activityLevel from userData:", userData.activityLevelLabel);
     activityLevelOptions.forEach(option => console.log(option.value));
 
     const activityLevelLabel = activityLevelOptions.find(option => option.value === userData.activityLevel)?.label || "Not Provided";

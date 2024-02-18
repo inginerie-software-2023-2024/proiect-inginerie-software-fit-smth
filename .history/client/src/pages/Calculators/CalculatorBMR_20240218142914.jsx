@@ -79,7 +79,7 @@ function BMRCalculator() {
                 </div>
 
                 <div className="inputs-bmr">
-
+                    
                     <InputField label="Age" name="age" value={formData.age} onChange={handleChange} />
                     <SelectField label="Gender" name="gender" value={formData.gender} options={["male", "female"]} onChange={handleChange} />
                     <InputField label="Weight (kg)" name="weight" value={formData.weight} onChange={handleChange} />

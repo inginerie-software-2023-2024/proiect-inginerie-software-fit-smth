@@ -95,6 +95,7 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
   };
 
   const renderCalculatedData = () => {
+    // Helper function to format number values
     const formatNumber = (value) => {
       return typeof value === 'number' ? value.toFixed(2) : value;
     };
@@ -148,68 +149,6 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
   };
 
 
-  const UserProfileView = React.memo(({ userData }) => {
-    const genderLabel = genderOptions.find(option => option.value === userData.gender)?.label || "Not Provided";
-    
-    console.log("Actual activityLevel from userData:", userData.activityLevel);
-    activityLevelOptions.forEach(option => console.log(option.value));
-
-    const activityLevelLabel = activityLevelOptions.find(option => option.value === userData.activityLevel)?.label || "Not Provided";
-
-    return (
-      <div className="table-responsive">
-        <table className="table table-bordered">
-          <tbody>
-            <tr>
-              <th scope="row">Username</th>
-              <td>{userData.username}</td>
-            </tr>
-            <tr>
-              <th scope="row">Email</th>
-              <td>{userData.email}</td>
-            </tr>
-            <tr>
-              <th scope="row">First Name</th>
-              <td>{userData.firstname}</td>
-            </tr>
-            <tr>
-              <th scope="row">Last Name</th>
-              <td>{userData.lastname}</td>
-            </tr>
-            <tr>
-              <th scope="row">Gender</th>
-              <td>{genderLabel}</td>
-            </tr>
-            <tr>
-              <th scope="row">Current Weight (kg)</th>
-              <td>{userData.current_weight}</td>
-            </tr>
-            <tr>
-              <th scope="row">Goal Weight (kg)</th>
-              <td>{userData.goal_weight}</td>
-            </tr>
-            <tr>
-              <th scope="row">Date of Birth</th>
-              <td>{userData.dateofbirth}</td>
-            </tr>
-            <tr>
-              <th scope="row">Height (cm)</th>
-              <td>{userData.height}</td>
-            </tr>
-            <tr>
-              <th scope="row">Body Fat (%)</th>
-              <td>{userData.bodyFat}</td>
-            </tr>
-            <tr>
-              <th scope="row">Activity Level</th>
-              <td>{activityLevelLabel}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
-  });
-
 
   return (
     <div className="container py-2">
@@ -222,7 +161,6 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
                 <UserProfileEditForm
                   editedData={editedData}
                   handleChange={handleChange}
-                  renderInputFields={renderInputFields}
                   handleSaveChanges={handleSaveChanges}
                 />
               ) : (
@@ -270,9 +208,22 @@ const renderParagraph = (label, value) => {
   );
 };
 
+const UserProfileView = React.memo(({ userData }) => (
+  <div className="user-data mt-3">
+    {renderParagraph("Username", userData.username)}
+    {renderParagraph("Email", userData.email)}
+    {renderParagraph("First Name", userData.firstname)}
+    {renderParagraph("Last Name", userData.lastname)}
+    {renderParagraph("Gender", userData.gender)}
+    {renderParagraph("Current Weight (kg)", userData.current_weight)}
+    {renderParagraph("Body Fat (%)", userData.bodyFat)}
+    {renderParagraph("Goal Weight (kg)", userData.goal_weight)}
+    {renderParagraph("Date of Birth", userData.dateofbirth)}
+    {renderParagraph("Height (cm)", userData.height)}
+    {renderParagraph("Activity level", userData.activitylevel)}
+  </div>));
 
-
-const UserProfileEditForm = React.memo(({ editedData, handleChange, renderInputFields, handleSaveChanges }) => {
+const UserProfileEditForm = React.memo(({ editedData, handleChange, handleSaveChanges, genderOptions, activityLevelOptions }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -282,9 +233,69 @@ const UserProfileEditForm = React.memo(({ editedData, handleChange, renderInputF
     }
   };
 
+  // Modified renderInputFields function to return table rows
+  const renderInputFields = (data, handleChange) => {
+    return (
+      <>
+        <tr>
+          <td>First Name:</td>
+          <td><input type="text" name="firstname" placeholder="First Name" value={data.firstname} onChange={handleChange} className="form-control" /></td>
+        </tr>
+        <tr>
+          <td>Last Name:</td>
+          <td><input type="text" name="lastname" placeholder="Last Name" value={data.lastname} onChange={handleChange} className="form-control" /></td>
+        </tr>
+        <tr>
+          <td>Gender:</td>
+          <td>
+            <select name="gender" value={data.gender} onChange={handleChange} className="form-control">
+              {genderOptions.map(option => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Current Weight (kg):</td>
+          <td><input type="number" name="current_weight" placeholder="Current Weight" value={data.current_weight} onChange={handleChange} className="form-control" /></td>
+        </tr>
+        <tr>
+          <td>Goal Weight (kg):</td>
+          <td><input type="number" name="goal_weight" placeholder="Goal Weight" value={data.goal_weight} onChange={handleChange} className="form-control" /></td>
+        </tr>
+        <tr>
+          <td>Date of Birth:</td>
+          <td><input type="date" name="dateofbirth" placeholder="Date of Birth" value={data.dateofbirth} onChange={handleChange} className="form-control" /></td>
+        </tr>
+        <tr>
+          <td>Height (cm):</td>
+          <td><input type="number" name="height" placeholder="Height" value={data.height} onChange={handleChange} className="form-control" /></td>
+        </tr>
+        <tr>
+          <td>Body Fat (%):</td>
+          <td><input type="number" name="bodyFat" placeholder="Body Fat Percentage" value={data.bodyFat} onChange={handleChange} className="form-control" /></td>
+        </tr>
+        <tr>
+          <td>Activity Level:</td>
+          <td>
+            <select name="activitylevel" value={data.activityLevel} onChange={handleChange} className="form-control">
+              {activityLevelOptions.map(option => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
+          </td>
+        </tr>
+      </>
+    );
+  };
+
   return (
     <form className="profile mt-3" onSubmit={handleSubmit}>
-      {renderInputFields(editedData, handleChange)}
+      <table className="table">
+        <tbody>
+          {renderInputFields(editedData, handleChange)}
+        </tbody>
+      </table>
       <button type="submit" className="btn btn-success">Save Changes</button>
     </form>
   );

@@ -95,6 +95,7 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
   };
 
   const renderCalculatedData = () => {
+    // Helper function to format number values
     const formatNumber = (value) => {
       return typeof value === 'number' ? value.toFixed(2) : value;
     };
@@ -150,10 +151,8 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
 
   const UserProfileView = React.memo(({ userData }) => {
     const genderLabel = genderOptions.find(option => option.value === userData.gender)?.label || "Not Provided";
-    
-    console.log("Actual activityLevel from userData:", userData.activityLevel);
-    activityLevelOptions.forEach(option => console.log(option.value));
 
+    // Find the label for the activity level
     const activityLevelLabel = activityLevelOptions.find(option => option.value === userData.activityLevel)?.label || "Not Provided";
 
     return (

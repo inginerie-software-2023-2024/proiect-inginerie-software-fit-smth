@@ -9,6 +9,8 @@ test('renders app component correctly', () => {
     </BrowserRouter>
   );
 
-  const homeLink = screen.getByText(/home/i); 
+  // Update this to match a known text element or role in your App component
+  // Example: const homeLink = screen.getByRole('link', { name: /home/i });
+  const homeLink = screen.getByText(/home/i); // Assuming your app renders a "Home" link or text
   expect(homeLink).toBeInTheDocument();
 });

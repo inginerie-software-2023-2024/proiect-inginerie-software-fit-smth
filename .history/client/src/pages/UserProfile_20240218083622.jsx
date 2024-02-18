@@ -49,10 +49,9 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => (
       selected={selectedDate}
       onChange={(date) => setSelectedDate(date)}
       dateFormat="dd-MM-yyyy"
-      className="form-control centered-datepicker"
+      className="form-control"
       onKeyDown={(e) => e.preventDefault()}
     />
-
   </div>
 );
 
@@ -75,13 +74,30 @@ const UserProfile = () => {
   const [userMeals, setUserMeals] = useState([])
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+
   useEffect(() => {
-    fetchUserData(username, setUserData);
+    const loadData = async () => {
+      await fetchUserData(username, setUserData);
+    };
+    loadData();
     getUserMealsData(username)
   }, [selectedDate, username]);
 
+  useEffect(() => {
+    console.log('UserData updated:', userData);
+  }, [userData]);
+
   const handleSaveChanges = async (updatedData) => {
-    await updateUserData(username, updatedData, setUserData);
+    console.log(`Handle changes for ${username}`);
+
+    const success = await updateUserData(username, updatedData);
+    if (success) {
+      console.log('Refreshing user data after successful update...');
+      setUserData(updatedData);
+      await fetchUserData(username, setUserData);
+    } else {
+      console.error("Failed to update user data.");
+    }
   };
 
   const filteredMeals = userMeals.filter(meal => {
@@ -94,7 +110,6 @@ const UserProfile = () => {
       if (response.data.Status === 'Error') {
         setUserMeals([]);
       } else {
-        // Check if response.data is an array  (for robustness)
         if (Array.isArray(response.data)) {
           setUserMeals(response.data);
         } else {
@@ -119,7 +134,6 @@ const UserProfile = () => {
       </div>
     </div>
   );
-
 };
 
 export default UserProfile;
@@ -135,20 +149,20 @@ function getCurrentUser() {
 }
 
 
-/**
- * Fetches user data from the server.
- * It makes an API call to retrieve the user's data based on the username and sets the data to state.
- *
- * @param {string} username - The username of the user whose data is to be fetched.
- * @param {function} setData - The state setter function for userData.
- */
+
 async function fetchUserData(username, setData) {
   console.log(`Fetching data for username: ${username}`);
   try {
     const res = await axios.get(`http://localhost:3001/profile/${username}`);
-    console.log('fetchUserData response:', res.data);
+    console.log('Data fetched:', res.data);
     if (res.data.Status === "Success") {
-      setData(res.data.data);
+      setData(prevData => {
+        if (JSON.stringify(prevData) !== JSON.stringify(res.data.data)) {
+          return { ...res.data.data };
+        }
+        return prevData;
+      });
+      console.log('State should now be updated with:', res.data.data);
     } else {
       console.error("Error fetching user data:", res.data.Error);
     }
@@ -157,39 +171,21 @@ async function fetchUserData(username, setData) {
   }
 }
 
-/**
- * Updates the user's data on the server.
- * It sends an API request to update user data and updates the local state upon successful response.
- *
- * @param {string} username - The username of the user whose data is to be updated.
- * @param {object} updatedData - The updated user data to be sent to the server.
- * @param {function} setData - The state setter function for userData.
- */
-async function updateUserData(username, updatedData, setData) {
-  console.log(`Updating data for username: ${username}`, updatedData);
+async function updateUserData(username, updatedData) {
   try {
     const response = await axios.put(`http://localhost:3001/profile/update/${username}`, updatedData);
-    console.log('updateUserData response:', response.data);
     if (response.data.Status === "Success") {
-      setData(updatedData);
+      console.log('Data updated successfully in backend');
+      return true; 
     } else {
       console.error("Error updating user data: ", response.data.Error);
+      return false; 
     }
   } catch (error) {
     console.error("Error updating user data: ", error);
+    return false; 
   }
 }
-
-/**
- * UserProfileContent Component.
- * Displays the user profile content including a form for viewing and editing user data.
- * It renders the user profile form if data is available, otherwise displays a loading message.
- *
- * @param {object} props - Component props.
- * @param {object} props.userData - Data of the user to be displayed and edited.
- * @param {function} props.onSaveChanges - Handler function to be called when saving changes in the form.
- */
-
 const UserProfileContent = ({ userData, onSaveChanges }) => (
   <div className="userInfo">
     <h1>User Profile</h1>

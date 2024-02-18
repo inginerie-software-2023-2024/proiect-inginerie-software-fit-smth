@@ -95,6 +95,7 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
   };
 
   const renderCalculatedData = () => {
+    // Helper function to format number values
     const formatNumber = (value) => {
       return typeof value === 'number' ? value.toFixed(2) : value;
     };
@@ -148,68 +149,6 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
   };
 
 
-  const UserProfileView = React.memo(({ userData }) => {
-    const genderLabel = genderOptions.find(option => option.value === userData.gender)?.label || "Not Provided";
-    
-    console.log("Actual activityLevel from userData:", userData.activityLevel);
-    activityLevelOptions.forEach(option => console.log(option.value));
-
-    const activityLevelLabel = activityLevelOptions.find(option => option.value === userData.activityLevel)?.label || "Not Provided";
-
-    return (
-      <div className="table-responsive">
-        <table className="table table-bordered">
-          <tbody>
-            <tr>
-              <th scope="row">Username</th>
-              <td>{userData.username}</td>
-            </tr>
-            <tr>
-              <th scope="row">Email</th>
-              <td>{userData.email}</td>
-            </tr>
-            <tr>
-              <th scope="row">First Name</th>
-              <td>{userData.firstname}</td>
-            </tr>
-            <tr>
-              <th scope="row">Last Name</th>
-              <td>{userData.lastname}</td>
-            </tr>
-            <tr>
-              <th scope="row">Gender</th>
-              <td>{genderLabel}</td>
-            </tr>
-            <tr>
-              <th scope="row">Current Weight (kg)</th>
-              <td>{userData.current_weight}</td>
-            </tr>
-            <tr>
-              <th scope="row">Goal Weight (kg)</th>
-              <td>{userData.goal_weight}</td>
-            </tr>
-            <tr>
-              <th scope="row">Date of Birth</th>
-              <td>{userData.dateofbirth}</td>
-            </tr>
-            <tr>
-              <th scope="row">Height (cm)</th>
-              <td>{userData.height}</td>
-            </tr>
-            <tr>
-              <th scope="row">Body Fat (%)</th>
-              <td>{userData.bodyFat}</td>
-            </tr>
-            <tr>
-              <th scope="row">Activity Level</th>
-              <td>{activityLevelLabel}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
-  });
-
 
   return (
     <div className="container py-2">
@@ -222,8 +161,9 @@ const UserProfileForm = ({ userData, onSaveChanges }) => {
                 <UserProfileEditForm
                   editedData={editedData}
                   handleChange={handleChange}
-                  renderInputFields={renderInputFields}
                   handleSaveChanges={handleSaveChanges}
+                  genderOptions={genderOptions}
+                  activityLevelOptions={activityLevelOptions}
                 />
               ) : (
                 <UserProfileView userData={userData} />
@@ -270,9 +210,52 @@ const renderParagraph = (label, value) => {
   );
 };
 
+const UserProfileView = React.memo(({ userData }) => (
+  <div className="user-data mt-3">
+    {renderParagraph("Username", userData.username)}
+    {renderParagraph("Email", userData.email)}
+    {renderParagraph("First Name", userData.firstname)}
+    {renderParagraph("Last Name", userData.lastname)}
+    {renderParagraph("Gender", userData.gender)}
+    {renderParagraph("Current Weight (kg)", userData.current_weight)}
+    {renderParagraph("Body Fat (%)", userData.bodyFat)}
+    {renderParagraph("Goal Weight (kg)", userData.goal_weight)}
+    {renderParagraph("Date of Birth", userData.dateofbirth)}
+    {renderParagraph("Height (cm)", userData.height)}
+    {renderParagraph("Activity level", userData.activitylevel)}
+  </div>));
 
+const InputField = ({ label, type, name, placeholder, value, onChange }) => (
+  <tr>
+    <td>{label}:</td>
+    <td>
+      <input
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        className="form-control"
+      />
+    </td>
+  </tr>
+);
 
-const UserProfileEditForm = React.memo(({ editedData, handleChange, renderInputFields, handleSaveChanges }) => {
+// Simplified Dropdown Component
+const Dropdown = ({ label, name, value, onChange, options }) => (
+  <tr>
+    <td>{label}:</td>
+    <td>
+      <select name={name} value={value} onChange={onChange} className="form-control">
+        {options.map(option => (
+          <option key={option.value} value={option.value}>{option.label}</option>
+        ))}
+      </select>
+    </td>
+  </tr>
+);
+
+const UserProfileEditForm = ({ editedData, handleChange, handleSaveChanges, genderOptions, activityLevelOptions }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -282,10 +265,34 @@ const UserProfileEditForm = React.memo(({ editedData, handleChange, renderInputF
     }
   };
 
+  const fields = [
+    { label: "First Name", type: "text", name: "firstname", placeholder: "First Name", value: editedData.firstname },
+    { label: "Last Name", type: "text", name: "lastname", placeholder: "Last Name", value: editedData.lastname },
+    { label: "Gender", type: "dropdown", name: "gender", options: genderOptions, value: editedData.gender },
+    { label: "Current Weight (kg)", type: "number", name: "current_weight", placeholder: "Current Weight", value: editedData.current_weight },
+    { label: "Goal Weight (kg)", type: "number", name: "goal_weight", placeholder: "Goal Weight", value: editedData.goal_weight },
+    { label: "Date of Birth", type: "date", name: "dateofbirth", placeholder: "", value: editedData.dateofbirth },
+    { label: "Height (cm)", type: "number", name: "height", placeholder: "Height", value: editedData.height },
+    { label: "Body Fat (%)", type: "number", name: "bodyFat", placeholder: "Body Fat Percentage", value: editedData.bodyFat },
+    { label: "Activity Level", type: "dropdown", name: "activitylevel", options: activityLevelOptions, value: editedData.activityLevel },
+  ];
+
   return (
     <form className="profile mt-3" onSubmit={handleSubmit}>
-      {renderInputFields(editedData, handleChange)}
+      <table className="table">
+        <tbody>
+          {fields.map((field) =>
+            field.type === "dropdown" ? (
+              <Dropdown key={field.name} {...field} onChange={handleChange} />
+            ) : (
+              <InputField key={field.name} {...field} onChange={handleChange} />
+            )
+          )}
+        </tbody>
+      </table>
       <button type="submit" className="btn btn-success">Save Changes</button>
     </form>
   );
-});
+};
+
+export default UserProfileEditForm;

@@ -49,7 +49,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => (
       selected={selectedDate}
       onChange={(date) => setSelectedDate(date)}
       dateFormat="dd-MM-yyyy"
-      className="form-control centered-datepicker"
+      className="form-control centered-datepicker" // Added custom class here
       onKeyDown={(e) => e.preventDefault()}
     />
 

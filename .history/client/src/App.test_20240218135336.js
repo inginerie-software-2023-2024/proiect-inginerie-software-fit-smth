@@ -9,6 +9,6 @@ test('renders app component correctly', () => {
     </BrowserRouter>
   );
 
-  const homeLink = screen.getByText(/home/i); 
+  const homeLink = screen.getByText(/home/i); // Assuming your app renders a "Home" link or text
   expect(homeLink).toBeInTheDocument();
 });
