@@ -9,35 +9,39 @@ on:
 jobs:
   client-tests:
     runs-on: windows-latest
-
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20' 
+      - uses: actions/checkout@v2
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
 
-    - name: Install client dependencies
-      run: npm ci --no-bin-links # Updated command here
-      working-directory: ./client
+      - name: Install client dependencies
+        run: npm ci --no-bin-links
+        working-directory: ./client
 
-    - name: Run client tests
-      run: npm test
-      working-directory: ./client
-      env:
-        CI: true
+      - name: Run client tests
+        run: npm test
+        working-directory: ./client
+        env:
+          CI: true
 
   server-setup:
     needs: client-tests
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20' 
+      - uses: actions/checkout@v2
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
 
-    - name: Install s
+      - name: Install server dependencies
+        run: npm ci
+        working-directory: ./server
+
+      - name: Build server or run server-specific scripts
+        run: npm run build --if-present
+        working-directory: ./server
