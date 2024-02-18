@@ -85,6 +85,16 @@ const SidebarMenu = () => {
                   <span className="ms-3 d-none d-sm-inline">TDEE Calculator</span>
                 </a>
               </li>
+              <li class="nav-item text-white fs-4 my-1 py-2 py-sm-0">
+                <a
+                  href="/calories-calculator"
+                  class="nav-link text-white fs-5"
+                  aria-current="page"
+                >
+                  <i className="bi bi-table"></i>
+                  <span className="ms-3 d-none d-sm-inline">Calories Calculator</span>
+                </a>
+              </li>
             </ul>
           </div>
           <div class="bg-light d-flex justify-content-between flex-column dropdown open">
