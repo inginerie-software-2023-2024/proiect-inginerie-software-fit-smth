@@ -1,0 +1,28 @@
+
+.userInfo {
+  margin-left: 300px;
+  padding: 20px;
+}
+
+.meals-history {
+  margin-left: 330px;
+  padding: 40px;
+  border: 1px solid rgba(85, 105, 112, 0.5);
+  margin-right: 30px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+
+  table {
+    margin-bottom: 0;
+  }
+}
+
+.title-hmu {
+  margin-left: 300px;
+  text-align: center;
+}
+
+.custom-dropdown {
+  width: auto; 
+  min-width: 100px; 
+}
