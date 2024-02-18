@@ -1,0 +1,49 @@
+name: Full Stack CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  client-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2  
+      - name: Set up Node.js (client) 
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16' 
+          cache: 'npm' 
+
+      - name: Install client dependencies
+        run: npm ci
+        working-directory: ./client
+
+      - name: Run client tests
+        run: npm test
+        working-directory: ./client
+        env:
+          CI: true
+
+  server-setup:
+    needs: client-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js (server)
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20' 
+          cache: 'npm'  
+
+      - name: Install server dependencies
+        run: npm ci
+        working-directory: ./server
+
+      - name: Build server or run server-specific scripts
+        run: npm run build --if-present
+        working-directory: ./server
